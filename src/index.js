@@ -1,4 +1,12 @@
+import Project from './project'
 import Item from './todo'
+
+const defaultProject = new Project(
+  {
+    title: 'Default project',
+    description: 'Add todos here'
+  }
+)
 
 const td = new Item(
   {
@@ -9,10 +17,7 @@ const td = new Item(
   }
 )
 
-console.log(td)
-td.title = 'new title'
-console.log(td.title)
-td.title = 'another title'
-console.log(td.currentStatus)
-td.currentStatus = 'closed'
-console.log(td.currentStatus)
+defaultProject.addTodo(td)
+console.log(defaultProject.projectTodos)
+defaultProject.removeTodo(td)
+console.log(defaultProject.projectTodos)
