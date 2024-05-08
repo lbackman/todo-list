@@ -131,3 +131,16 @@ button {
 textarea {
   resize: none;
 }
+
+.input:required {
+  border: 1px solid green;
+}
+
+.input:required:invalid {
+  border: 1px solid red;
+}
+
+.required:after {
+  content: " *";
+  color: red;
+}
