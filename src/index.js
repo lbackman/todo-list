@@ -1,6 +1,7 @@
 import './style.css'
 import Project from './project'
 import Todo from './todo'
+import { userInterface } from './user_interface'
 
 const defaultProject = new Project(
   {
@@ -23,19 +24,9 @@ console.log(defaultProject.projectTodos)
 defaultProject.removeTodo(td)
 console.log(defaultProject.projectTodos)
 
+const ui = userInterface()
 const projectModalBtn = document.getElementById("new-project")
 const todoModalBtn = document.getElementById("new-todo")
-
-const openModal = function(modal) {
-  modal.style.display = "block"
-}
-
-const closeModal = function(modal, objectCreated = true) {
-  if (objectCreated) {
-    modal.querySelector('form').reset()
-  }
-  modal.style.display = "none"
-}
 
 const createProject = function(args) {
   const project = new Project(args)
@@ -56,7 +47,7 @@ const buttons = [projectModalBtn, todoModalBtn]
 buttons.forEach(button => {
   button.onclick = function() {
     const modal = button.nextElementSibling
-    openModal(modal)
+    ui.openModal(modal)
 
     const submitButton = modal.querySelector('input[type="submit"]')
     submitButton.onclick = function(event) {
@@ -71,13 +62,13 @@ buttons.forEach(button => {
       if (submitButton.id === 'create-project') {
         if (constructorArgs['title'].trim()) {
           createProject(constructorArgs)
-          closeModal(modal)
+          ui.closeModal(modal)
         }
       }
       else if (submitButton.id === 'create-todo') {
         if (constructorArgs['title'].trim() && constructorArgs['priority'] && constructorArgs['dueDate']) {
           createTodo(constructorArgs)
-          closeModal(modal)
+          ui.closeModal(modal)
         }
       }
     }
@@ -85,7 +76,7 @@ buttons.forEach(button => {
     const closeSpan = modal.querySelector('.close')
     window.onclick = function(event) {
       if (event.target == modal || event.target == closeSpan) {
-        closeModal(modal, false)
+        ui.closeModal(modal, false)
       }
     }
   }
