@@ -30,7 +30,10 @@ const openModal = function(modal) {
   modal.style.display = "block"
 }
 
-const closeModal = function(modal) {
+const closeModal = function(modal, objectCreated = true) {
+  if (objectCreated) {
+    modal.querySelector('form').reset()
+  }
   modal.style.display = "none"
 }
 
@@ -82,7 +85,7 @@ buttons.forEach(button => {
     const closeSpan = modal.querySelector('.close')
     window.onclick = function(event) {
       if (event.target == modal || event.target == closeSpan) {
-        closeModal(modal)
+        closeModal(modal, false)
       }
     }
   }
