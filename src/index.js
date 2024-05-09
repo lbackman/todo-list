@@ -49,7 +49,7 @@ const createTodo = function(args) {
   // insert into DOM
 }
 
-const buttons = [projectModalBtn, todoModalBtn]
+const modalButtons = [projectModalBtn, todoModalBtn]
 
 const createObject = function(modal, button) {
   // have the same class of 'input' on all input fields
@@ -73,9 +73,9 @@ const createObject = function(modal, button) {
   }
 }
 
-buttons.forEach(button => {
-  button.addEventListener('click', function() {
-    const modal = button.nextElementSibling
+modalButtons.forEach(modalButton => {
+  modalButton.addEventListener('click', function() {
+    const modal = modalButton.nextElementSibling
     ui.openModal(modal)
 
     const submitButton = modal.querySelector('input[type="submit"]')
