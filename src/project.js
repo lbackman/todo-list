@@ -1,9 +1,22 @@
 export default class Project {
   #todos
+  #id
+
+  static id = 0
+
+  static calculateId() {
+    return Project.id++
+  }
+
   constructor({ title, description }) {
     this.title = title
     this.description = description
     this.#todos = []
+    this.#id = Project.calculateId()
+  }
+
+  get id() {
+    return this.#id
   }
 
   get projectTodos() {
