@@ -1,11 +1,21 @@
 import './style.css'
+import ProjectList from './project_list'
 import Project from './project'
 import Todo from './todo'
 import { userInterface } from './user_interface'
 
+const projectList = new ProjectList()
+
 const defaultProject = new Project(
   {
     'title': 'Default project',
+    'description': 'Add todos here'
+  }
+)
+
+const secondProject = new Project(
+  {
+    'title': 'Second project',
     'description': 'Add todos here'
   }
 )
@@ -26,7 +36,10 @@ const td = new Todo(
 // if no project exists, it should not be possible to create a todo
 // alternatively, a default project that can not be deleted holds all non-project todos
 
+projectList.addProject(defaultProject)
+projectList.addProject(secondProject)
 defaultProject.addTodo(td)
+console.log(projectList.currentProject)
 console.log(defaultProject.projectTodos)
 defaultProject.removeTodo(td)
 console.log(defaultProject.projectTodos)
