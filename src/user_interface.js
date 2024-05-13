@@ -1,3 +1,5 @@
+import { projectTemplate } from './project_template'
+
 export function userInterface() {
   const openModal = function(modal) {
     modal.style.display = "block"
@@ -10,5 +12,10 @@ export function userInterface() {
     modal.style.display = "none"
   }
 
-  return { openModal, closeModal }
+  const insertProject = function(container, project) {
+    const projectHTML = projectTemplate(project)
+    container.appendChild(projectHTML)
+  }
+
+  return { openModal, closeModal, insertProject }
 }

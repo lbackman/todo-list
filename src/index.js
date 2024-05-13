@@ -52,8 +52,8 @@ const todoModalBtn = document.getElementById("new-todo")
 const createProject = function(args) {
   const project = new Project(args)
   console.log(project)
-  // add project to array of all projects
-  // insert into DOM
+  const projectContainer = document.querySelector('.project-container')
+  ui.insertProject(projectContainer, project)
 }
 
 const createTodo = function(args) {
