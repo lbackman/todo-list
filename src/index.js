@@ -1,3 +1,4 @@
+import './reset.css'
 import './style.css'
 import ProjectList from './project_list'
 import Project from './project'
