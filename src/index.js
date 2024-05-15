@@ -46,8 +46,6 @@ defaultProject.removeTodo(td)
 console.log(defaultProject.projectTodos)
 
 const ui = userInterface()
-const projectModalBtn = document.getElementById("new-project")
-const todoModalBtn = document.getElementById("new-todo")
 
 const createProject = function(args) {
   const project = new Project(args)
@@ -62,8 +60,6 @@ const createTodo = function(args) {
   // add todo to the current project
   // insert into DOM
 }
-
-const modalButtons = [projectModalBtn, todoModalBtn]
 
 const createObject = function(modal, button) {
   // have the same class of 'input' on all input fields
@@ -87,22 +83,26 @@ const createObject = function(modal, button) {
   }
 }
 
-modalButtons.forEach(modalButton => {
-  modalButton.addEventListener('click', function() {
-    const modal = modalButton.nextElementSibling
-    ui.openModal(modal)
+const modalEvent = function(modal) {
+  ui.openModal(modal)
 
-    const submitButton = modal.querySelector('input[type="submit"]')
-    submitButton.addEventListener('click', function(event) {
-      event.preventDefault();
-      createObject(modal, submitButton)
-    })
-
-    const closeSpan = modal.querySelector('.close')
-    window.addEventListener('click', function(event) {
-      if (event.target == modal || event.target == closeSpan) {
-        ui.closeModal(modal, false)
-      }
-    })
+  const submitButton = modal.querySelector('input[type="submit"]')
+  submitButton.addEventListener('click', function(event) {
+    event.preventDefault();
+    createObject(modal, submitButton)
   })
+
+  const closeSpan = modal.querySelector('.close')
+  window.addEventListener('click', function(event) {
+    if (event.target == modal || event.target == closeSpan) {
+      ui.closeModal(modal, false)
+    }
+  })
+}
+
+document.addEventListener('click', function(event) {
+  if (event.target.classList.contains('modal-button')) {
+    const modal = event.target.nextElementSibling
+    modalEvent(modal)
+  }
 })
