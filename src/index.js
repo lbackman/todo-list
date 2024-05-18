@@ -105,4 +105,9 @@ document.addEventListener('click', function(event) {
     const modal = event.target.nextElementSibling
     modalEvent(modal)
   }
+  if (event.target.classList.contains('delete')) {
+    const deletable = event.target.closest('.deletable')
+    console.log(deletable)
+    deletable.remove()
+  }
 })
