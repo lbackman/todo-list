@@ -2,6 +2,7 @@ export function projectTemplate(project) {
   const projectDiv = document.createElement('div')
   projectDiv.classList.add('project', 'deletable')
   projectDiv.dataset.id = project.id
+  projectDiv.tabIndex = '0'
 
   const contents = `<h2>${project.title}</h2>
                     <p>${project.description}</p>
