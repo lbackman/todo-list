@@ -100,6 +100,12 @@ const modalEvent = function(modal) {
   })
 }
 
+const deleteProject = function(projectNode) {
+  const objectId = Number(projectNode.dataset.id)
+  projectList.removeProject(objectId)
+  projectNode.remove()
+}
+
 document.addEventListener('click', function(event) {
   if (event.target.classList.contains('modal-button')) {
     const modal = event.target.nextElementSibling
@@ -107,7 +113,7 @@ document.addEventListener('click', function(event) {
   }
   if (event.target.classList.contains('delete')) {
     const deletable = event.target.closest('.deletable')
-    console.log(deletable)
-    deletable.remove()
+    // change to more generic deleteObject when including todos
+    deleteProject(deletable)
   }
 })
