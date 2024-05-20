@@ -80,11 +80,7 @@ const deleteProject = function(projectNode) {
 const selectProject = function(projectNode) {
   if (!projectNode.classList.contains('selected')) {
     projectList.projectId = Number(projectNode.dataset.id)
-    const previouslySelected = projectNode.parentNode.querySelector('.selected')
-    if (previouslySelected) {
-      previouslySelected.classList.remove('selected')
-    }
-    projectNode.classList.add('selected')
+    ui.selectProject(projectNode)
     // remove the previous project's todos from todo container
     // populate it with the new project's todos
   }
@@ -102,7 +98,6 @@ document.addEventListener('click', function(event) {
   }
   if (event.target.classList.contains('selectable')) {
     const selectable = event.target.closest('.project')
-    // All child elements except the buttons should also select the project node
     selectProject(selectable)
   }
 })

@@ -13,9 +13,17 @@ export function userInterface() {
   }
 
   const insertProject = function(container, project) {
-    const projectHTML = projectTemplate(project)
-    container.appendChild(projectHTML)
+    const projectNode = projectTemplate(project)
+    container.appendChild(projectNode)
   }
 
-  return { openModal, closeModal, insertProject }
+  const selectProject = function(projectNode) {
+    const previouslySelected = projectNode.parentNode.querySelector('.selected')
+    if (previouslySelected) {
+      previouslySelected.classList.remove('selected')
+    }
+    projectNode.classList.add('selected')
+  }
+
+  return { openModal, closeModal, insertProject, selectProject }
 }
