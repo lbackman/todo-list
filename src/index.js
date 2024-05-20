@@ -49,9 +49,11 @@ const ui = userInterface()
 
 const createProject = function(args) {
   const project = new Project(args)
-  console.log(project)
+  projectList.addProject(project)
   const projectContainer = document.querySelector('.project-container')
   ui.insertProject(projectContainer, project)
+  const newProjectNode = projectContainer.querySelector(`[data-id='${project.id}']`)
+  selectProject(newProjectNode)
 }
 
 const createTodo = function(args) {
@@ -106,6 +108,19 @@ const deleteProject = function(projectNode) {
   projectNode.remove()
 }
 
+const selectProject = function(projectNode) {
+  if (!projectNode.classList.contains('selected')) {
+    projectList.projectId = Number(projectNode.dataset.id)
+    const previouslySelected = projectNode.parentNode.querySelector('.selected')
+    if (previouslySelected) {
+      previouslySelected.classList.remove('selected')
+    }
+    projectNode.classList.add('selected')
+    // remove the previous project's todos from todo container
+    // populate it with the new project's todos
+  }
+}
+
 document.addEventListener('click', function(event) {
   if (event.target.classList.contains('modal-button')) {
     const modal = event.target.nextElementSibling
@@ -115,5 +130,9 @@ document.addEventListener('click', function(event) {
     const deletable = event.target.closest('.deletable')
     // change to more generic deleteObject when including todos
     deleteProject(deletable)
+  }
+  if (event.target.classList.contains('project', 'selectable')) {
+    const selectable = event.target
+    selectProject(selectable)
   }
 })
