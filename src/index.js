@@ -7,43 +7,11 @@ import { userInterface } from './user_interface'
 
 const projectList = new ProjectList()
 
-const defaultProject = new Project(
-  {
-    'title': 'Default project',
-    'description': 'Add todos here'
-  }
-)
-
-const secondProject = new Project(
-  {
-    'title': 'Second project',
-    'description': 'Add todos here'
-  }
-)
-
-const td = new Todo(
-  {
-    'title': 'first',
-    'description': 'first todo',
-    'dueDate': 'tomorrow',
-    'priority': 'high priority'
-  }
-)
-
-// next steps: create an object (array) for holding all projects
 // unless no projects exist, there should alway be a project selected by default
 // if a selected project is deleted, another is automatically selected
 // a new todo is attached to the selected project
 // if no project exists, it should not be possible to create a todo
 // alternatively, a default project that can not be deleted holds all non-project todos
-
-projectList.addProject(defaultProject)
-projectList.addProject(secondProject)
-defaultProject.addTodo(td)
-console.log(projectList.currentProject)
-console.log(defaultProject.projectTodos)
-defaultProject.removeTodo(td)
-console.log(defaultProject.projectTodos)
 
 const ui = userInterface()
 
@@ -138,3 +106,17 @@ document.addEventListener('click', function(event) {
     selectProject(selectable)
   }
 })
+
+createProject(
+  {
+    'title': 'Default project',
+    'description': 'Add todos here'
+  }
+)
+
+createProject(
+  {
+    'title': 'Second project',
+    'description': 'Add todos here'
+  }
+)
