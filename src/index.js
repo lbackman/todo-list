@@ -106,6 +106,7 @@ const deleteProject = function(projectNode) {
   const objectId = Number(projectNode.dataset.id)
   projectList.removeProject(objectId)
   projectNode.remove()
+  // if current project == deleted project, select another
 }
 
 const selectProject = function(projectNode) {
@@ -131,8 +132,9 @@ document.addEventListener('click', function(event) {
     // change to more generic deleteObject when including todos
     deleteProject(deletable)
   }
-  if (event.target.classList.contains('project', 'selectable')) {
-    const selectable = event.target
+  if (event.target.classList.contains('selectable')) {
+    const selectable = event.target.closest('.project')
+    // All child elements except the buttons should also select the project node
     selectProject(selectable)
   }
 })
