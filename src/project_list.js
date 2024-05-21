@@ -4,7 +4,6 @@ export default class ProjectList {
 
   constructor() {
     this.#projects = {}
-    this.#currentId = 0
   }
 
   get projectId() {
