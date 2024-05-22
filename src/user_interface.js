@@ -1,13 +1,16 @@
 import { projectTemplate } from './project_template'
 
 export function userInterface() {
-  const openModal = function(modal) {
+  const openModal = function(modal, headerContent) {
+    const header = modal.querySelector('.header .object-type')
+    header.textContent = headerContent
     modal.style.display = "block"
   }
 
-  const closeModal = function(modal, objectCreated = true) {
-    if (objectCreated) {
+  const closeModal = function(modal, resetFields = true) {
+    if (resetFields) {
       modal.querySelector('form').reset()
+      console.log('reset')
     }
     modal.style.display = "none"
   }
