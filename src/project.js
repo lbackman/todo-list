@@ -9,8 +9,7 @@ export default class Project {
   }
 
   constructor({ title, description }) {
-    this.title = title
-    this.description = description
+    this.#assignFields({ title, description })
     this.#todos = []
     this.#id = Project.calculateId()
   }
@@ -30,5 +29,14 @@ export default class Project {
   removeTodo(todo) {
     const index = this.#todos.indexOf(todo)
     this.#todos.splice(index, 1)
+  }
+
+  edit({ title, description }) {
+    this.#assignFields({ title, description })
+  }
+
+  #assignFields({ title, description }) {
+    this.title = title
+    this.description = description
   }
 }
