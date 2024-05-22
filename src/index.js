@@ -74,7 +74,7 @@ const deleteProject = function(projectNode) {
   const objectId = Number(projectNode.dataset.id)
   projectList.removeProject(objectId)
   projectNode.remove()
-  // if current project == deleted project, select another
+  // if current project == deleted project, prompt user to select or create project
 }
 
 const selectProject = function(projectNode) {
@@ -99,6 +99,18 @@ document.addEventListener('click', function(event) {
   if (event.target.classList.contains('selectable')) {
     const selectable = event.target.closest('.project')
     selectProject(selectable)
+  }
+  if (event.target.classList.contains('edit')) {
+    const editable = event.target.closest('.editable')
+    const container = event.target.closest('.container')
+    const modal = container.querySelector('.modal')
+    console.log(editable)
+    console.log(container)
+    console.log(modal)
+    // change modalEvent so that it takes an optional parameter
+    // if this parameter is present, it should edit instead of creating a new object
+    // The h2 element should also change to either "New Project" or "Edit Project"
+    // modalEvent(modal, editable)
   }
 })
 
