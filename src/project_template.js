@@ -4,8 +4,8 @@ export function projectTemplate(project) {
   projectDiv.dataset.id = project.id
   projectDiv.tabIndex = '0'
 
-  const contents = `<h2 class="selectable">${project.title}</h2>
-                    <p class="selectable">${project.description}</p>
+  const contents = `<h2 class="title selectable">${project.title}</h2>
+                    <p class="description selectable">${project.description}</p>
                     <button class="delete">Delete</button>
                     <button class="edit selectable">Edit</button>`
 
