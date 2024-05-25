@@ -53,21 +53,37 @@ const createObject = function(modal, button) {
   }
 }
 
-const modalEvent = function(modal) {
-  ui.openModal(modal)
-
-  const submitButton = modal.querySelector('input[type="submit"]')
-  submitButton.addEventListener('click', function(event) {
-    event.preventDefault();
-    createObject(modal, submitButton)
-  })
+const modalEvent = function(modal, editable = false) {
+  console.log(editable)
+  if (editable) {
+    ui.openModal(modal, 'Edit')
+    const editableProject = projectList.currentProject
+    const titleField = modal.querySelector('input[name="title"]')
+    titleField.value = editableProject.title
+    const descriptionField = modal.querySelector('textarea[name="description"]')
+    descriptionField.value = editableProject.description
+    // event listener on submit button
+    // modify createObject to allow for editing
+  } else {
+    ui.openModal(modal, 'New')
+    const submitNewProjectButton = modal.querySelector('input[type="submit"]')
+    const submitButtonListner = function(event) {
+      event.preventDefault()
+      createObject(modal, submitNewProjectButton)
+      submitNewProjectButton.removeEventListener('click', submitButtonListner)
+    }
+    submitNewProjectButton.addEventListener('click', submitButtonListner)
+  }
 
   const closeSpan = modal.querySelector('.close')
-  window.addEventListener('click', function(event) {
+
+  const closeModalListner = function(event) {
     if (event.target == modal || event.target == closeSpan) {
-      ui.closeModal(modal, false)
+      ui.closeModal(modal, editable)
+      window.removeEventListener('click', closeModalListner)
     }
-  })
+  }
+  window.addEventListener('click', closeModalListner)
 }
 
 const deleteProject = function(projectNode) {
@@ -101,16 +117,9 @@ document.addEventListener('click', function(event) {
     selectProject(selectable)
   }
   if (event.target.classList.contains('edit')) {
-    const editable = event.target.closest('.editable')
     const container = event.target.closest('.container')
     const modal = container.querySelector('.modal')
-    console.log(editable)
-    console.log(container)
-    console.log(modal)
-    // change modalEvent so that it takes an optional parameter
-    // if this parameter is present, it should edit instead of creating a new object
-    // The h2 element should also change to either "New Project" or "Edit Project"
-    // modalEvent(modal, editable)
+    modalEvent(modal, true)
   }
 })
 
