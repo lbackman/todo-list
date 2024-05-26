@@ -56,7 +56,7 @@ const createObject = function(modal, button) {
   return false
 }
 
-const modalEvent = function(modal, editable = false) {
+const openModal = function(modal, editable = false) {
   if (editable) {
     ui.openModal(modal, 'Edit')
     const editableProject = projectList.currentProject
@@ -108,7 +108,7 @@ const selectProject = function(projectNode) {
 document.addEventListener('click', function(event) {
   if (event.target.classList.contains('modal-button')) {
     const modal = event.target.nextElementSibling
-    modalEvent(modal)
+    openModal(modal)
   }
   if (event.target.classList.contains('delete')) {
     const deletable = event.target.closest('.deletable')
@@ -122,7 +122,7 @@ document.addEventListener('click', function(event) {
   if (event.target.classList.contains('edit')) {
     const container = event.target.closest('.container')
     const modal = container.querySelector('.modal')
-    modalEvent(modal, true)
+    openModal(modal, true)
   }
 })
 
