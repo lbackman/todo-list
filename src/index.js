@@ -43,18 +43,20 @@ const createObject = function(modal, button) {
     if (constructorArgs['title'].trim()) {
       createProject(constructorArgs)
       ui.closeModal(modal)
+      return true
     }
   }
   else if (button.id === 'create-todo') {
     if (constructorArgs['title'].trim() && constructorArgs['priority'] && constructorArgs['dueDate']) {
       createTodo(constructorArgs)
       ui.closeModal(modal)
+      return true
     }
   }
+  return false
 }
 
 const modalEvent = function(modal, editable = false) {
-  console.log(editable)
   if (editable) {
     ui.openModal(modal, 'Edit')
     const editableProject = projectList.currentProject
@@ -69,8 +71,9 @@ const modalEvent = function(modal, editable = false) {
     const submitNewProjectButton = modal.querySelector('input[type="submit"]')
     const submitButtonListner = function(event) {
       event.preventDefault()
-      createObject(modal, submitNewProjectButton)
-      submitNewProjectButton.removeEventListener('click', submitButtonListner)
+      if (createObject(modal, submitNewProjectButton)) {
+        submitNewProjectButton.removeEventListener('click', submitButtonListner)
+      }
     }
     submitNewProjectButton.addEventListener('click', submitButtonListner)
   }
