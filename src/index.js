@@ -56,26 +56,34 @@ const createObject = function(modal, button) {
   return false
 }
 
+const openEditModal = function(modal) {
+  ui.openModal(modal, 'Edit')
+  const editableProject = projectList.currentProject
+  const titleField = modal.querySelector('input[name="title"]')
+  titleField.value = editableProject.title
+  const descriptionField = modal.querySelector('textarea[name="description"]')
+  descriptionField.value = editableProject.description
+  // event listener on submit button
+  // modify createObject to allow for editing
+}
+
+const openNewModal = function(modal) {
+  ui.openModal(modal, 'New')
+  const submitNewProjectButton = modal.querySelector('input[type="submit"]')
+  const submitButtonListner = function(event) {
+    event.preventDefault()
+    if (createObject(modal, submitNewProjectButton)) {
+      submitNewProjectButton.removeEventListener('click', submitButtonListner)
+    }
+  }
+  submitNewProjectButton.addEventListener('click', submitButtonListner)
+}
+
 const openModal = function(modal, editable = false) {
   if (editable) {
-    ui.openModal(modal, 'Edit')
-    const editableProject = projectList.currentProject
-    const titleField = modal.querySelector('input[name="title"]')
-    titleField.value = editableProject.title
-    const descriptionField = modal.querySelector('textarea[name="description"]')
-    descriptionField.value = editableProject.description
-    // event listener on submit button
-    // modify createObject to allow for editing
+    openEditModal(modal)
   } else {
-    ui.openModal(modal, 'New')
-    const submitNewProjectButton = modal.querySelector('input[type="submit"]')
-    const submitButtonListner = function(event) {
-      event.preventDefault()
-      if (createObject(modal, submitNewProjectButton)) {
-        submitNewProjectButton.removeEventListener('click', submitButtonListner)
-      }
-    }
-    submitNewProjectButton.addEventListener('click', submitButtonListner)
+    openNewModal(modal)
   }
 
   const closeSpan = modal.querySelector('.close')
