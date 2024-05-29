@@ -28,5 +28,16 @@ export function userInterface() {
     projectNode.classList.add('selected')
   }
 
-  return { openModal, closeModal, insertProject, selectProject }
+  const populateFields = function(modal, project) {
+    if (modal.id === 'projectModal') {
+      const fieldValues = project.editableValues
+      const fields = modal.querySelectorAll('.input')
+      fields.forEach(field => field.value = fieldValues[field.name])
+    }
+    else if (modal.id === 'todoModal') {
+      console.log('todo')
+    }
+  }
+
+  return { openModal, closeModal, insertProject, selectProject, populateFields }
 }

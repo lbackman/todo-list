@@ -58,13 +58,7 @@ const createObject = function(modal, button) {
 
 const openEditModal = function(modal) {
   ui.openModal(modal, 'Edit')
-  const editableProject = projectList.currentProject
-  const titleField = modal.querySelector('input[name="title"]')
-  titleField.value = editableProject.title
-  const descriptionField = modal.querySelector('textarea[name="description"]')
-  descriptionField.value = editableProject.description
-  // event listener on submit button
-  // modify createObject to allow for editing
+  ui.populateFields(modal, projectList.currentProject)
 }
 
 const openNewModal = function(modal) {
