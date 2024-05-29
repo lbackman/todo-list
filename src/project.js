@@ -35,6 +35,11 @@ export default class Project {
     this.#assignFields({ title, description })
   }
 
+  get editableValues() {
+    const values = { 'title': this.title, 'description': this.description }
+    return values
+  }
+
   #assignFields({ title, description }) {
     this.title = title
     this.description = description

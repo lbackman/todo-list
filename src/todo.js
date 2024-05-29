@@ -22,4 +22,13 @@ export default class Todo {
   set currentStatus(newStatus) {
     this.#status = newStatus
   }
+
+  get editableValues() {
+    const values = { title: this.title,
+                     description: this.description,
+                     dueDate: this.dueDate,
+                     priority: this.priority,
+                     status: this.#status }
+    return values
+  }
 }
