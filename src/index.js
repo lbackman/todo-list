@@ -85,44 +85,46 @@ const editObject = function(modal, button) {
   return false  
 }
 
-const openEditModal = function(modal) {
+const openEditModal = function(modal, editable) {
   ui.openModal(modal, 'Edit')
   ui.populateFields(modal, projectList.currentProject)
-  const submitEditProjectButton = modal.querySelector('input[type="submit"]')
+  const submitButton = modal.querySelector('input[type="submit"]')
   const submitButtonListner = function(event) {
     event.preventDefault()
-    if (editObject(modal, submitEditProjectButton)) {
-      submitEditProjectButton.removeEventListener('click', submitButtonListner)
+    if (editObject(modal, submitButton)) {
+      submitButton.removeEventListener('click', submitButtonListner)
     }
   }
-  submitEditProjectButton.addEventListener('click', submitButtonListner)
-}
-
-const openNewModal = function(modal) {
-  ui.openModal(modal, 'New')
-  const submitNewProjectButton = modal.querySelector('input[type="submit"]')
-  const submitButtonListner = function(event) {
-    event.preventDefault()
-    if (createObject(modal, submitNewProjectButton)) {
-      submitNewProjectButton.removeEventListener('click', submitButtonListner)
-    }
-  }
-  submitNewProjectButton.addEventListener('click', submitButtonListner)
-}
-
-const openModal = function(modal, editable = false) {
-  if (editable) {
-    openEditModal(modal)
-  } else {
-    openNewModal(modal)
-  }
-
+  submitButton.addEventListener('click', submitButtonListner)
   const closeSpan = modal.querySelector('.close')
 
   const closeModalListner = function(event) {
     if (event.target == modal || event.target == closeSpan) {
       ui.closeModal(modal, editable)
       window.removeEventListener('click', closeModalListner)
+      submitButton.removeEventListener('click', submitButtonListner)
+    }
+  }
+  window.addEventListener('click', closeModalListner)
+}
+
+const openNewModal = function(modal, editable = false) {
+  ui.openModal(modal, 'New')
+  const submitButton = modal.querySelector('input[type="submit"]')
+  const submitButtonListner = function(event) {
+    event.preventDefault()
+    if (createObject(modal, submitButton)) {
+      submitButton.removeEventListener('click', submitButtonListner)
+    }
+  }
+  submitButton.addEventListener('click', submitButtonListner)
+  const closeSpan = modal.querySelector('.close')
+
+  const closeModalListner = function(event) {
+    if (event.target == modal || event.target == closeSpan) {
+      ui.closeModal(modal, editable)
+      window.removeEventListener('click', closeModalListner)
+      submitButton.removeEventListener('click', submitButtonListner)
     }
   }
   window.addEventListener('click', closeModalListner)
@@ -147,7 +149,7 @@ const selectProject = function(projectNode) {
 document.addEventListener('click', function(event) {
   if (event.target.classList.contains('modal-button')) {
     const modal = event.target.nextElementSibling
-    openModal(modal)
+    openNewModal(modal)
   }
   if (event.target.classList.contains('delete')) {
     const deletable = event.target.closest('.deletable')
@@ -161,7 +163,7 @@ document.addEventListener('click', function(event) {
   if (event.target.classList.contains('edit')) {
     const container = event.target.closest('.container')
     const modal = container.querySelector('.modal')
-    openModal(modal, true)
+    openEditModal(modal, true)
   }
 })
 
