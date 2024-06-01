@@ -20,6 +20,12 @@ export function userInterface() {
     container.appendChild(projectNode)
   }
 
+  const updateProject = function(container, project) {
+    const replacableProjectNode = container.querySelector(`[data-id='${project.id}']`)
+    const updatedProjectNode = projectTemplate(project)
+    replacableProjectNode.replaceWith(updatedProjectNode)
+  }
+
   const selectProject = function(projectNode) {
     const previouslySelected = projectNode.parentNode.querySelector('.selected')
     if (previouslySelected) {
@@ -39,5 +45,5 @@ export function userInterface() {
     }
   }
 
-  return { openModal, closeModal, insertProject, selectProject, populateFields }
+  return { openModal, closeModal, insertProject, updateProject, selectProject, populateFields }
 }

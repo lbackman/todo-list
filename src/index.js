@@ -24,6 +24,14 @@ const createProject = function(args) {
   selectProject(newProjectNode)
 }
 
+const editProject = function(args, project) {
+  project.edit(args)
+  const projectContainer = document.querySelector('.project-container')
+  ui.updateProject(projectContainer, project)
+  const editedProjectNode = projectContainer.querySelector(`[data-id='${project.id}']`)
+  selectProject(editedProjectNode)
+}
+
 const createTodo = function(args) {
   const todo = new Todo(args)
   console.log(todo)
@@ -32,10 +40,8 @@ const createTodo = function(args) {
 }
 
 const createObject = function(modal, button) {
-  // have the same class of 'input' on all input fields
   const inputFields = modal.querySelectorAll('.input')
   const constructorArgs = {}
-  // use name property of inputs to create the key-words: {'title': 'some title', 'description': 'blabla'}
   inputFields.forEach(inputField => {
     constructorArgs[inputField.name] = inputField.value
   })
@@ -56,9 +62,40 @@ const createObject = function(modal, button) {
   return false
 }
 
+const editObject = function(modal, button) {
+  const inputFields = modal.querySelectorAll('.input')
+  const constructorArgs = {}
+  inputFields.forEach(inputField => {
+    constructorArgs[inputField.name] = inputField.value
+  })
+  if (button.id === 'create-project') {
+    if (constructorArgs['title'].trim()) {
+      editProject(constructorArgs, projectList.currentProject)
+      ui.closeModal(modal)
+      return true
+    }
+  }
+  else if (button.id === 'create-todo') {
+    if (constructorArgs['title'].trim() && constructorArgs['priority'] && constructorArgs['dueDate']) {
+      // editTodo(constructorArgs, projectList.currentProject.currentTodo)
+      ui.closeModal(modal)
+      return true
+    }
+  }
+  return false  
+}
+
 const openEditModal = function(modal) {
   ui.openModal(modal, 'Edit')
   ui.populateFields(modal, projectList.currentProject)
+  const submitEditProjectButton = modal.querySelector('input[type="submit"]')
+  const submitButtonListner = function(event) {
+    event.preventDefault()
+    if (editObject(modal, submitEditProjectButton)) {
+      submitEditProjectButton.removeEventListener('click', submitButtonListner)
+    }
+  }
+  submitEditProjectButton.addEventListener('click', submitButtonListner)
 }
 
 const openNewModal = function(modal) {
