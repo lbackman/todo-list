@@ -45,5 +45,27 @@ export function userInterface() {
     }
   }
 
-  return { openModal, closeModal, insertProject, updateProject, selectProject, populateFields }
+  const addModalEventListeners = function(modal, submitFunction, editable = false) {
+    const submitButton = modal.querySelector('input[type="submit"]')
+    const submitButtonListner = function(event) {
+      event.preventDefault()
+      if (submitFunction(modal, submitButton)) {
+        window.removeEventListener('click', closeModalListner)
+        submitButton.removeEventListener('click', submitButtonListner)
+        closeModal(modal)
+      }
+    }
+    const closeSpan = modal.querySelector('.close')
+    const closeModalListner = function(event) {
+      if (event.target == modal || event.target == closeSpan) {
+        window.removeEventListener('click', closeModalListner)
+        submitButton.removeEventListener('click', submitButtonListner)
+        closeModal(modal, editable)
+      }
+    }
+    window.addEventListener('click', closeModalListner)
+    submitButton.addEventListener('click', submitButtonListner)
+  }
+
+  return { openModal, insertProject, updateProject, selectProject, populateFields, addModalEventListeners }
 }
