@@ -48,14 +48,12 @@ const createObject = function(modal, button) {
   if (button.id === 'create-project') {
     if (constructorArgs['title'].trim()) {
       createProject(constructorArgs)
-      ui.closeModal(modal)
       return true
     }
   }
   else if (button.id === 'create-todo') {
     if (constructorArgs['title'].trim() && constructorArgs['priority'] && constructorArgs['dueDate']) {
       createTodo(constructorArgs)
-      ui.closeModal(modal)
       return true
     }
   }
@@ -71,14 +69,12 @@ const editObject = function(modal, button) {
   if (button.id === 'create-project') {
     if (constructorArgs['title'].trim()) {
       editProject(constructorArgs, projectList.currentProject)
-      ui.closeModal(modal)
       return true
     }
   }
   else if (button.id === 'create-todo') {
     if (constructorArgs['title'].trim() && constructorArgs['priority'] && constructorArgs['dueDate']) {
       // editTodo(constructorArgs, projectList.currentProject.currentTodo)
-      ui.closeModal(modal)
       return true
     }
   }
@@ -90,6 +86,7 @@ const addModalEventListners = function(modal, submitFunction, editable = false) 
   const submitButtonListner = function(event) {
     event.preventDefault()
     if (submitFunction(modal, submitButton)) {
+      ui.closeModal(modal)
       submitButton.removeEventListener('click', submitButtonListner)
     }
   }
