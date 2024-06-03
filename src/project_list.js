@@ -1,21 +1,21 @@
 export default class ProjectList {
   #projects
-  #currentId
+  #currentProjectId
 
   constructor() {
     this.#projects = {}
   }
 
   get projectId() {
-    return this.#currentId
+    return this.#currentProjectId
   }
 
   set projectId(id) {
-    this.#currentId = id
+    this.#currentProjectId = id
   }
 
   get currentProject() {
-    return this.#projects[this.#currentId]
+    return this.#projects[this.#currentProjectId]
   }
 
   addProject(project) {
