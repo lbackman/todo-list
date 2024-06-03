@@ -4,14 +4,14 @@ export default class Project {
 
   static id = 0
 
-  static calculateId() {
+  static generateId() {
     return Project.id++
   }
 
   constructor({ title, description }) {
     this.#assignFields({ title, description })
-    this.#todos = []
-    this.#id = Project.calculateId()
+    this.#todos = {}
+    this.#id = Project.generateId()
   }
 
   get id() {
@@ -23,12 +23,12 @@ export default class Project {
   }
 
   addTodo(todo) {
-    this.#todos.push(todo)
+    this.#todos[todo.id] = todo
+    this.todoId = todo.id
   }
 
-  removeTodo(todo) {
-    const index = this.#todos.indexOf(todo)
-    this.#todos.splice(index, 1)
+  removeTodo(id) {
+    delete this.#todos[id]
   }
 
   edit({ title, description }) {
