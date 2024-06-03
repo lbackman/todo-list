@@ -1,6 +1,7 @@
 export default class Project {
   #todos
   #id
+  #currentTodoId
 
   static id = 0
 
@@ -20,6 +21,18 @@ export default class Project {
 
   get projectTodos() {
     return this.#todos
+  }
+
+  get todoId() {
+    return this.#currentTodoId
+  }
+
+  set todoId(id) {
+    this.#currentTodoId = id
+  }
+
+  get currentTodo() {
+    return this.#todos[this.#currentTodoId]
   }
 
   addTodo(todo) {
