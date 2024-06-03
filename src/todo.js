@@ -1,6 +1,15 @@
 export default class Todo {
   #dateCreated
   #status
+  #id
+
+  static id = 0
+
+  static generateId() {
+    return Todo.id++
+  }
+
+  // include id in todo instances like in project
 
   constructor({ title, description, dueDate, priority }) {
     this.title = title
@@ -8,7 +17,8 @@ export default class Todo {
     this.dueDate = dueDate
     this.priority = priority
     this.#dateCreated = new Date()
-    this.#status = 'open' // there should be a predefined list of statuses, e.g. open, in progress, closed etc.
+    this.#id = Todo.generateId()
+    this.#status = 'open' // open or closed
   }
 
   get creationDate() {
@@ -17,6 +27,10 @@ export default class Todo {
 
   get currentStatus() {
     return this.#status
+  }
+
+  get id() {
+    return this.#id
   }
 
   set currentStatus(newStatus) {
