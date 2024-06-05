@@ -34,9 +34,10 @@ const editProject = function(args, project) {
 
 const createTodo = function(args) {
   const todo = new Todo(args)
-  console.log(todo)
-  // add todo to the current project
-  // insert into DOM
+  projectList.currentProject.addTodo(todo)
+  const todoContainer = document.querySelector('.todo-container')
+  ui.insertTodo(todoContainer, todo)
+  // make the Todo 'selected' as in the createProject function
 }
 
 const createObject = function(modal, button) {

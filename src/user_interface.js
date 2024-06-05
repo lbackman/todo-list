@@ -1,4 +1,5 @@
 import { projectTemplate } from './project_template'
+import { todoTemplate } from './todo_template'
 
 export function userInterface() {
   const openModal = function(modal, headerContent) {
@@ -18,6 +19,11 @@ export function userInterface() {
   const insertProject = function(container, project) {
     const projectNode = projectTemplate(project)
     container.appendChild(projectNode)
+  }
+
+  const insertTodo = function(container, todo) {
+    const todoNode = todoTemplate(todo)
+    container.appendChild(todoNode)
   }
 
   const updateProject = function(container, project) {
@@ -67,5 +73,5 @@ export function userInterface() {
     submitButton.addEventListener('click', submitButtonListner)
   }
 
-  return { openModal, insertProject, updateProject, selectProject, populateFields, addModalEventListeners }
+  return { openModal, insertProject, updateProject, selectProject, populateFields, insertTodo, addModalEventListeners }
 }
