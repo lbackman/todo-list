@@ -40,8 +40,7 @@ export function userInterface() {
     projectNode.classList.add('selected')
     const todoContainer = document.querySelector('.todo-container')
     clearContainer(todoContainer)
-    const ProjectTodos = Object.values(project.todos)
-    fillContainer(todoContainer, ProjectTodos)
+    fillContainer(todoContainer, project.todos)
   }
 
   const clearContainer = function(container) {

@@ -36,7 +36,8 @@ export default class Project {
   }
 
   get todos() {
-    return this.#todos
+    // maybe return it with the todos ordered by due date
+    return Object.values(this.#todos)
   }
 
   addTodo(todo) {
