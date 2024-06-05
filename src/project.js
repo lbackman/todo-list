@@ -35,6 +35,10 @@ export default class Project {
     return this.#todos[this.#currentTodoId]
   }
 
+  get todos() {
+    return this.#todos
+  }
+
   addTodo(todo) {
     this.#todos[todo.id] = todo
     this.todoId = todo.id
