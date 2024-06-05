@@ -32,12 +32,26 @@ export function userInterface() {
     replacableProjectNode.replaceWith(updatedProjectNode)
   }
 
-  const selectProject = function(projectNode) {
+  const selectProject = function(projectNode, project) {
     const previouslySelected = projectNode.parentNode.querySelector('.selected')
     if (previouslySelected) {
       previouslySelected.classList.remove('selected')
     }
     projectNode.classList.add('selected')
+    const todoContainer = document.querySelector('.todo-container')
+    clearContainer(todoContainer)
+    const ProjectTodos = Object.values(project.todos)
+    fillContainer(todoContainer, ProjectTodos)
+  }
+
+  const clearContainer = function(container) {
+    while (container.firstChild) {
+      container.removeChild(container.lastChild)
+    }
+  }
+
+  const fillContainer = function(container, todos) {
+    todos.forEach(todo => container.appendChild(todoTemplate(todo)))
   }
 
   const populateFields = function(modal, project) {

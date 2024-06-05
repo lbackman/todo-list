@@ -103,9 +103,8 @@ const deleteProject = function(projectNode) {
 const selectProject = function(projectNode) {
   if (!projectNode.classList.contains('selected')) {
     projectList.projectId = Number(projectNode.dataset.id)
-    ui.selectProject(projectNode)
-    // remove the previous project's todos from todo container
-    // populate it with the new project's todos
+    const project = projectList.currentProject
+    ui.selectProject(projectNode, project)
   }
 }
 
