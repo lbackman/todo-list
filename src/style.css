@@ -106,3 +106,13 @@ textarea {
   background-color: #eee;
   box-shadow: 1px 2px 2px #888888 inset;
 }
+
+aside:not(:has(.selected)) ~ main button#new-todo,
+aside:not(:has(.selected)) ~ main button#new-todo:active {
+  cursor: not-allowed;
+  background-color: light-dark(rgba(239, 239, 239, 0.3), rgba(19, 1, 1, 0.3));
+  color: light-dark(rgba(16, 16, 16, 0.3), rgba(255, 255, 255, 0.3));
+  border-color: light-dark(rgba(118, 118, 118, 0.3), rgba(195, 195, 195, 0.3));
+  border-radius: inherit;
+  border-style: outset;
+}

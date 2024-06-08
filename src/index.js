@@ -110,9 +110,16 @@ const selectProject = function(projectNode) {
 }
 
 document.addEventListener('click', function(event) {
-  if (event.target.classList.contains('modal-button')) {
+  if (event.target.id === 'new-project') {
     const modal = event.target.nextElementSibling
     openNewModal(modal)
+  }
+  if (event.target.id === 'new-todo') {
+    const projects = document.querySelector('.project-container').childNodes
+    if ([...projects].some(project => project.classList.contains('selected'))) {
+      const modal = event.target.nextElementSibling
+      openNewModal(modal)
+    }
   }
   if (event.target.classList.contains('delete')) {
     const deletable = event.target.closest('.deletable')
