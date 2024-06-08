@@ -94,10 +94,11 @@ const openNewModal = function(modal) {
 }
 
 const deleteProject = function(projectNode) {
-  const objectId = Number(projectNode.dataset.id)
-  projectList.removeProject(objectId)
-  projectNode.remove()
-  // if current project == deleted project, prompt user to select or create project
+  const deletableProjectId = Number(projectNode.dataset.id)
+  projectList.removeProject(deletableProjectId)
+  ui.deleteProject(projectNode, deletableProjectId, projectList.projectId)
+  // if current project == deleted project:
+  // prompt user to select or create project
 }
 
 const selectProject = function(projectNode) {
