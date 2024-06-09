@@ -37,7 +37,17 @@ export default class Project {
 
   get todos() {
     // maybe return it with the todos ordered by due date
+    // https://www.freecodecamp.org/news/how-to-sort-array-of-objects-by-property-name-in-javascript/
+    // in that case it would be good to handle insertion so that the date order is preserved
+    // also if editing the date it would have to be inserted again
+    // https://stackoverflow.com/questions/282670/easiest-way-to-sort-dom-nodes
+    // https://stackoverflow.com/questions/68184606/how-do-i-sort-html-collections-based-on-child-elements-using-plain-javascript
+    // and in css add an animation so that it's clear where the newly added todo is inserted
     return Object.values(this.#todos)
+  }
+
+  get todosObject() {
+    return this.#todos
   }
 
   addTodo(todo) {
