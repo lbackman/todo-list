@@ -61,15 +61,17 @@ export function userInterface() {
     todos.forEach(todo => container.appendChild(todoTemplate(todo)))
   }
 
-  const populateFields = function(modal, project) {
+  const populateFields = function(modal, project, id) {
+    let fieldValues
     if (modal.id === 'projectModal') {
-      const fieldValues = project.editableValues
-      const fields = modal.querySelectorAll('.input')
-      fields.forEach(field => field.value = fieldValues[field.name])
+      fieldValues = project.editableValues
     }
     else if (modal.id === 'todoModal') {
-      console.log('todo')
+      const todo = project.todosObject[id]
+      fieldValues = todo.editableValues
     }
+    const fields = modal.querySelectorAll('.input')
+    fields.forEach(field => field.value = fieldValues[field.name])
   }
 
   const addModalEventListeners = function(modal, submitFunction, editable = false) {
