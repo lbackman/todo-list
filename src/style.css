@@ -116,3 +116,11 @@ aside:not(:has(.selected)) ~ main button#new-todo:active {
   border-radius: inherit;
   border-style: outset;
 }
+
+aside:not(:has(.selected)) ~ main .empty-container {
+  display: block;
+}
+
+aside:has(.selected) ~ main .empty-container {
+  display: none;
+}
