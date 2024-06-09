@@ -82,9 +82,9 @@ const editObject = function(modal, button) {
   return false  
 }
 
-const openEditModal = function(modal) {
+const openEditModal = function(modal, id) {
   ui.openModal(modal, 'Edit')
-  ui.populateFields(modal, projectList.currentProject)
+  ui.populateFields(modal, projectList.currentProject, id)
   ui.addModalEventListeners(modal, editObject, true)
 }
 
@@ -138,7 +138,8 @@ document.addEventListener('click', function(event) {
   if (event.target.classList.contains('edit')) {
     const container = event.target.closest('.container')
     const modal = container.querySelector('.modal')
-    openEditModal(modal)
+    const id = Number(event.target.closest('.editable').dataset.id)
+    openEditModal(modal, id)
   }
 })
 
