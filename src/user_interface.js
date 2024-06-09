@@ -43,9 +43,9 @@ export function userInterface() {
     fillContainer(todoContainer, project.todos)
   }
 
-  const deleteProject = function(projectNode, projectId, currentProjectId) {
-    projectNode.remove()
-    if (projectId === currentProjectId) {
+  const deleteObject = function(node, projectId = null, currentProjectId = null) {
+    node.remove()
+    if (projectId && projectId === currentProjectId) {
       const todoContainer = document.querySelector('.todo-container')
       clearContainer(todoContainer)
     }
@@ -96,5 +96,5 @@ export function userInterface() {
     submitButton.addEventListener('click', submitButtonListner)
   }
 
-  return { openModal, insertProject, updateProject, selectProject, deleteProject, populateFields, insertTodo, addModalEventListeners }
+  return { openModal, insertProject, updateProject, selectProject, deleteObject, populateFields, insertTodo, addModalEventListeners }
 }

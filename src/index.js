@@ -93,12 +93,25 @@ const openNewModal = function(modal) {
   ui.addModalEventListeners(modal, createObject)
 }
 
+const deleteObject = function(node) {
+  if (node.classList.contains('project')) {
+    deleteProject(node)
+  }
+  else if (node.classList.contains('todo')) {
+    deleteTodo(node)
+  }
+}
+
 const deleteProject = function(projectNode) {
   const deletableProjectId = Number(projectNode.dataset.id)
   projectList.removeProject(deletableProjectId)
-  ui.deleteProject(projectNode, deletableProjectId, projectList.projectId)
-  // if current project == deleted project:
-  // prompt user to select or create project
+  ui.deleteObject(projectNode, deletableProjectId, projectList.projectId)
+}
+
+const deleteTodo = function(todoNode) {
+  const deletableTodoId = Number(todoNode.dataset.id)
+  projectList.currentProject.removeTodo(deletableTodoId)
+  ui.deleteObject(todoNode)
 }
 
 const selectProject = function(projectNode) {
@@ -128,8 +141,7 @@ document.addEventListener('click', function(event) {
   }
   if (event.target.classList.contains('delete')) {
     const deletable = event.target.closest('.deletable')
-    // change to more generic deleteObject when including todos
-    deleteProject(deletable)
+    deleteObject(deletable)
   }
   if (event.target.classList.contains('selectable')) {
     const selectable = event.target.closest('.project')
