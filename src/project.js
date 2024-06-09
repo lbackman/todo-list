@@ -35,7 +35,7 @@ export default class Project {
     return this.#todos[this.#currentTodoId]
   }
 
-  get todos() {
+  get todosArray() {
     // maybe return it with the todos ordered by due date
     // https://www.freecodecamp.org/news/how-to-sort-array-of-objects-by-property-name-in-javascript/
     // in that case it would be good to handle insertion so that the date order is preserved
@@ -46,7 +46,7 @@ export default class Project {
     return Object.values(this.#todos)
   }
 
-  get todosObject() {
+  get todos() {
     return this.#todos
   }
 

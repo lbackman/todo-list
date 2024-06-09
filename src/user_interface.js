@@ -40,7 +40,7 @@ export function userInterface() {
     projectNode.classList.add('selected')
     const todoContainer = document.querySelector('.todo-container')
     clearContainer(todoContainer)
-    fillContainer(todoContainer, project.todos)
+    fillContainer(todoContainer, project.todosArray)
   }
 
   const deleteObject = function(node, projectId = null, currentProjectId = null) {
@@ -67,7 +67,7 @@ export function userInterface() {
       fieldValues = project.editableValues
     }
     else if (modal.id === 'todoModal') {
-      const todo = project.todosObject[id]
+      const todo = project.todos[id]
       fieldValues = todo.editableValues
     }
     const fields = modal.querySelectorAll('.input')
