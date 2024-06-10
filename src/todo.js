@@ -12,10 +12,7 @@ export default class Todo {
   // include id in todo instances like in project
 
   constructor({ title, description, dueDate, priority }) {
-    this.title = title
-    this.description = description
-    this.dueDate = dueDate
-    this.priority = priority
+    this.#assignFields({ title, description, dueDate, priority })
     this.#dateCreated = new Date()
     this.#id = Todo.generateId()
     this.#status = 'open' // open or closed
@@ -44,5 +41,16 @@ export default class Todo {
                      dueDate: this.dueDate,
                      priority: this.priority }
     return values
+  }
+
+  edit({ title, description, dueDate, priority }) {
+    this.#assignFields({ title, description, dueDate, priority })
+  }
+
+  #assignFields({ title, description, dueDate, priority }) {
+    this.title = title
+    this.description = description
+    this.dueDate = dueDate
+    this.priority = priority
   }
 }
