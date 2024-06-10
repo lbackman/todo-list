@@ -27,15 +27,17 @@ export function userInterface() {
   }
 
   const updateProject = function(container, project) {
-    const replacableProjectNode = container.querySelector(`[data-id='${project.id}']`)
-    const updatedProjectNode = projectTemplate(project)
-    replacableProjectNode.replaceWith(updatedProjectNode)
+    update(projectTemplate, container, project)
   }
 
   const updateTodo = function(container, todo) {
-    const replacableTodoNode = container.querySelector(`[data-id='${todo.id}']`)
-    const updatedTodoNode = todoTemplate(todo)
-    replacableTodoNode.replaceWith(updatedTodoNode)
+    update(todoTemplate, container, todo)
+  }
+
+  const update = function(template, container, object) {
+    const replacableNode = container.querySelector(`[data-id='${object.id}']`)
+    const updatedNode = template(object)
+    replacableNode.replaceWith(updatedNode)
   }
 
   const selectProject = function(projectNode, project) {
