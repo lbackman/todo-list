@@ -17,13 +17,16 @@ export function userInterface() {
   }
 
   const insertProject = function(container, project) {
-    const projectNode = projectTemplate(project)
-    container.appendChild(projectNode)
+    insert(projectTemplate, container, project)
   }
 
   const insertTodo = function(container, todo) {
-    const todoNode = todoTemplate(todo)
-    container.appendChild(todoNode)
+    insert(todoTemplate, container, todo)
+  }
+
+  const insert = function(template, container, object) {
+    const node = template(object)
+    container.appendChild(node)
   }
 
   const updateProject = function(container, project) {
@@ -104,5 +107,5 @@ export function userInterface() {
     submitButton.addEventListener('click', submitButtonListner)
   }
 
-  return { openModal, insertProject, updateProject, updateTodo, selectProject, deleteObject, populateFields, insertTodo, addModalEventListeners }
+  return { openModal, insertProject, insertTodo, updateProject, updateTodo, selectProject, deleteObject, populateFields, addModalEventListeners }
 }
