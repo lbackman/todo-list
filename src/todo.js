@@ -43,8 +43,8 @@ export default class Todo {
     return values
   }
 
-  edit({ title, description, dueDate, priority }) {
-    this.#assignFields({ title, description, dueDate, priority })
+  edit(fieldValues) {
+    this.#assignFields(fieldValues)
   }
 
   #assignFields({ title, description, dueDate, priority }) {

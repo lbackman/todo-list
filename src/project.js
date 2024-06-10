@@ -59,8 +59,8 @@ export default class Project {
     delete this.#todos[id]
   }
 
-  edit({ title, description }) {
-    this.#assignFields({ title, description })
+  edit(fieldValues) {
+    this.#assignFields(fieldValues)
   }
 
   get editableValues() {
