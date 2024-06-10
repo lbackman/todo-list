@@ -32,6 +32,12 @@ export function userInterface() {
     replacableProjectNode.replaceWith(updatedProjectNode)
   }
 
+  const updateTodo = function(container, todo) {
+    const replacableTodoNode = container.querySelector(`[data-id='${todo.id}']`)
+    const updatedTodoNode = todoTemplate(todo)
+    replacableTodoNode.replaceWith(updatedTodoNode)
+  }
+
   const selectProject = function(projectNode, project) {
     const previouslySelected = projectNode.parentNode.querySelector('.selected')
     if (previouslySelected) {
@@ -74,11 +80,11 @@ export function userInterface() {
     fields.forEach(field => field.value = fieldValues[field.name])
   }
 
-  const addModalEventListeners = function(modal, submitFunction, editable = false) {
+  const addModalEventListeners = function(submitFunction, modal, id = null, editable = false) {
     const submitButton = modal.querySelector('input[type="submit"]')
     const submitButtonListner = function(event) {
       event.preventDefault()
-      if (submitFunction(modal, submitButton)) {
+      if (submitFunction(modal, submitButton, id)) {
         window.removeEventListener('click', closeModalListner)
         submitButton.removeEventListener('click', submitButtonListner)
         closeModal(modal)
@@ -96,5 +102,5 @@ export function userInterface() {
     submitButton.addEventListener('click', submitButtonListner)
   }
 
-  return { openModal, insertProject, updateProject, selectProject, deleteObject, populateFields, insertTodo, addModalEventListeners }
+  return { openModal, insertProject, updateProject, updateTodo, selectProject, deleteObject, populateFields, insertTodo, addModalEventListeners }
 }

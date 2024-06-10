@@ -7,12 +7,6 @@ import { userInterface } from './user_interface'
 
 const projectList = new ProjectList()
 
-// unless no projects exist, there should alway be a project selected by default
-// if a selected project is deleted, another is automatically selected
-// a new todo is attached to the selected project
-// if no project exists, it should not be possible to create a todo
-// alternatively, a default project that can not be deleted holds all non-project todos
-
 const ui = userInterface()
 
 const createProject = function(args) {
@@ -37,10 +31,15 @@ const createTodo = function(args) {
   projectList.currentProject.addTodo(todo)
   const todoContainer = document.querySelector('.todo-container')
   ui.insertTodo(todoContainer, todo)
-  // make the Todo 'selected' as in the createProject function
 }
 
-const createObject = function(modal, button) {
+const editTodo = function(args, todo) {
+  todo.edit(args)
+  const todoContainer = document.querySelector('.todo-container')
+  ui.updateTodo(todoContainer, todo)
+}
+
+const createObject = function(modal, button, _id) {
   const inputFields = modal.querySelectorAll('.input')
   const constructorArgs = {}
   inputFields.forEach(inputField => {
@@ -61,7 +60,7 @@ const createObject = function(modal, button) {
   return false
 }
 
-const editObject = function(modal, button) {
+const editObject = function(modal, button, id) {
   const inputFields = modal.querySelectorAll('.input')
   const constructorArgs = {}
   inputFields.forEach(inputField => {
@@ -75,7 +74,7 @@ const editObject = function(modal, button) {
   }
   else if (button.id === 'create-todo') {
     if (constructorArgs['title'].trim() && constructorArgs['priority'] && constructorArgs['dueDate']) {
-      // editTodo(constructorArgs, projectList.currentProject.currentTodo)
+      editTodo(constructorArgs, projectList.currentProject.todos[id])
       return true
     }
   }
@@ -85,12 +84,12 @@ const editObject = function(modal, button) {
 const openEditModal = function(modal, id) {
   ui.openModal(modal, 'Edit')
   ui.populateFields(modal, projectList.currentProject, id)
-  ui.addModalEventListeners(modal, editObject, true)
+  ui.addModalEventListeners(editObject, modal, id, true)
 }
 
 const openNewModal = function(modal) {
   ui.openModal(modal, 'New')
-  ui.addModalEventListeners(modal, createObject)
+  ui.addModalEventListeners(createObject, modal)
 }
 
 const deleteObject = function(node) {
