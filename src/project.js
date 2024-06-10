@@ -68,8 +68,9 @@ export default class Project {
     return values
   }
 
-  #assignFields({ title, description }) {
-    this.title = title
-    this.description = description
+  #assignFields(fieldValues) {
+    for (const property in fieldValues) {
+      this[property] = fieldValues[property]
+    }
   }
 }

@@ -47,10 +47,9 @@ export default class Todo {
     this.#assignFields(fieldValues)
   }
 
-  #assignFields({ title, description, dueDate, priority }) {
-    this.title = title
-    this.description = description
-    this.dueDate = dueDate
-    this.priority = priority
+  #assignFields(fieldValues) {
+    for (const property in fieldValues) {
+      this[property] = fieldValues[property]
+    }
   }
 }
