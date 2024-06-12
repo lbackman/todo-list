@@ -1,6 +1,6 @@
 export default class Todo {
   #dateCreated
-  #status
+  #isOpen
   #id
 
   static id = 0
@@ -9,29 +9,23 @@ export default class Todo {
     return Todo.id++
   }
 
-  // include id in todo instances like in project
-
   constructor({ title, description, dueDate, priority }) {
     this.#assignFields({ title, description, dueDate, priority })
     this.#dateCreated = new Date()
     this.#id = Todo.generateId()
-    this.#status = 'open' // open or closed
+    this.#isOpen = true // open or closed
   }
 
   get creationDate() {
     return this.#dateCreated
   }
 
-  get currentStatus() {
-    return this.#status
+  get isOpen() {
+    return this.#isOpen
   }
 
   get id() {
     return this.#id
-  }
-
-  set currentStatus(newStatus) {
-    this.#status = newStatus
   }
 
   get editableValues() {
@@ -41,6 +35,10 @@ export default class Todo {
                      dueDate: this.dueDate,
                      priority: this.priority }
     return values
+  }
+
+  toggleStatus() {
+    this.#isOpen = !this.#isOpen
   }
 
   edit(fieldValues) {
