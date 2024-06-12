@@ -12,7 +12,7 @@ export function todoTemplate(todo) {
                       <p class="description">${todo.description}</p>
                       <p class="due-date">Due date: ${todo.dueDate}</p>
                       <p class="priority">Priority: ${todo.priority}</p>
-                      <p class="current-status">Status: ${todo.currentStatus}</p>
+                      <p class="current-status">Status: <span>${todo.isOpen ? 'Open' : 'Closed'}</span></p>
                       <button class="delete">Delete</button>
                       <button class="edit">Edit</button>
                     </div>`

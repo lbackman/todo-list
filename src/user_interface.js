@@ -108,10 +108,13 @@ export function userInterface() {
   }
 
   const toggleStatus = function(todoNode, todoIsOpen) {
+    const currentStatus = todoNode.querySelector('.current-status > span')
     if (todoIsOpen) {
       todoNode.classList.remove('closed')
+      currentStatus.textContent = 'Open'
     } else {
       todoNode.classList.add('closed')
+      currentStatus.textContent = 'Closed'
     }
   }
 
