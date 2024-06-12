@@ -123,6 +123,13 @@ const handleModalButtonClick = function(target) {
   openNewModal(modal)
 }
 
+const toggleStatus = function(todoNode) {
+  const id = Number(todoNode.dataset.id)
+  const todo = projectList.currentProject.todos[id]
+  todo.toggleStatus()
+  ui.toggleStatus(todoNode, todo.isOpen)
+}
+
 document.addEventListener('click', function(event) {
   if (event.target.classList.contains('modal-button')) {
     const modalTarget = event.target
@@ -141,6 +148,10 @@ document.addEventListener('click', function(event) {
     const modal = container.querySelector('.modal')
     const id = Number(event.target.closest('.editable').dataset.id)
     openEditModal(modal, id)
+  }
+  if (event.target.classList.contains('check')) {
+    const todo = event.target.closest('.todo')
+    toggleStatus(todo)
   }
 })
 
