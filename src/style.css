@@ -94,7 +94,8 @@ textarea {
   color: red;
 }
 
-.project {
+.project,
+.todo {
   border-radius: 5px;
   border: 1px solid #888;
   box-shadow: 3px 3px 5px #888888;
@@ -105,6 +106,15 @@ textarea {
 .project.selected {
   background-color: #eee;
   box-shadow: 1px 2px 2px #888888 inset;
+}
+
+.todo {
+  display: flex;
+  align-items: center;
+}
+
+.todo > div {
+  margin-left: 1rem;
 }
 
 aside:not(:has(.selected)) ~ main button#new-todo,
