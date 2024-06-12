@@ -117,6 +117,10 @@ textarea {
   margin-left: 1rem;
 }
 
+.todo.closed {
+  background-color: rgb(195, 235, 195);
+}
+
 aside:not(:has(.selected)) ~ main button#new-todo,
 aside:not(:has(.selected)) ~ main button#new-todo:active {
   cursor: not-allowed;

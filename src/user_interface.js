@@ -107,5 +107,13 @@ export function userInterface() {
     submitButton.addEventListener('click', submitButtonListner)
   }
 
-  return { openModal, insertProject, insertTodo, updateProject, updateTodo, selectProject, deleteObject, populateFields, addModalEventListeners }
+  const toggleStatus = function(todoNode, todoIsOpen) {
+    if (todoIsOpen) {
+      todoNode.classList.remove('closed')
+    } else {
+      todoNode.classList.add('closed')
+    }
+  }
+
+  return { openModal, insertProject, insertTodo, updateProject, updateTodo, selectProject, deleteObject, populateFields, addModalEventListeners, toggleStatus }
 }
