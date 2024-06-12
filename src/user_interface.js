@@ -56,7 +56,7 @@ export function userInterface() {
 
   const deleteObject = function(node, projectId = null, currentProjectId = null) {
     node.remove()
-    if (projectId && projectId === currentProjectId) {
+    if (projectId !== null && projectId === currentProjectId) {
       const todoContainer = document.querySelector('.todo-container')
       clearContainer(todoContainer)
     }
