@@ -17,9 +17,10 @@
         <span class="close">&times;</span>
         <form class="modal-form" action="">
           <label for="project-title" class="required">Title</label>
-          <input type="text" id="project-title" name="title" class="input" required>
+          <input type="text" id="project-title" name="title" class="input" data-name="Title" required>
           <label for="project-description">Description</label>
           <textarea name="description" id="project-description" cols="30" rows="5" maxlength="150" class="input"></textarea>
+          <div class="validation"></div>
           <input id="create-project" type="submit" value="Submit">
         </form>
       </div>
@@ -39,18 +40,19 @@
         <span class="close">&times;</span>
         <form class="modal-form" action="">
           <label for="todo-title" class="required">Title</label>
-          <input type="text" id="todo-title" name="title" class="input" required>
+          <input type="text" id="todo-title" name="title" class="input" data-name="Title" required>
           <label for="priority" class="required">Priority</label>
-          <select name="priority" id="priority" class="input" required>
+          <select name="priority" id="priority" class="input" data-name="Priority" required>
             <option disabled selected value=""> -- select priority -- </option>
             <option value="low">Low</option>
             <option value="normal">Normal</option>
             <option value="high">High</option>
           </select>
           <label for="dueDate" class="required">Due date</label>
-          <input type="date" id="dueDate" name="dueDate" class="input" required/>
+          <input type="date" id="dueDate" name="dueDate" class="input" data-name="Due date" required/>
           <label for="todo-description">Description</label>
           <textarea name="description" id="todo-description" cols="30" rows="5" maxlength="150" class="input"></textarea>
+          <div class="validation"></div>
           <input id="create-todo" type="submit" value="Submit">
         </form>
       </div>
