@@ -41,7 +41,7 @@ const editTodo = function(args, todo) {
 
 const createOrEditObject = function(modal, button, id) {
   const requiredFields = modal.querySelectorAll('[required]')
-  if (!verifyRequiredFields([...requiredFields])) {
+  if (!verifyRequiredFields(modal, [...requiredFields])) {
     return false
   }
 
@@ -67,8 +67,13 @@ const createOrEditObject = function(modal, button, id) {
   return true
 }
 
-const verifyRequiredFields = function(requiredFields) {
-  return requiredFields.map(field => field.value.trim()).every(val => val !== '')
+const verifyRequiredFields = function(modal, requiredFields) {
+  const emptyFields = requiredFields.filter(field => field.value.trim() === '').map(field => field.dataset.name)
+  if (emptyFields[0]) {
+    ui.showVerificationMessage(modal, emptyFields)
+    return false
+  }
+  return true
 }
 
 const openEditModal = function(modal, id) {
