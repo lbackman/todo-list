@@ -9,6 +9,8 @@ export function userInterface() {
   }
 
   const closeModal = function(modal, resetFields = true) {
+    const validationDiv = modal.querySelector('.validation')
+    clearContainer(validationDiv)
     if (resetFields) {
       modal.querySelector('form').reset()
       console.log('reset')
@@ -118,5 +120,18 @@ export function userInterface() {
     }
   }
 
-  return { openModal, insertProject, insertTodo, updateProject, updateTodo, selectProject, deleteObject, populateFields, addModalEventListeners, toggleStatus }
+  const showVerificationMessage = function(modal, fields) {
+    const validationDiv = modal.querySelector('.validation')
+    clearContainer(validationDiv)
+    const messageList = document.createElement('ul')
+    messageList.classList.add('messages')
+    fields.forEach(field => {
+      const listItem = document.createElement('li')
+      listItem.textContent = `Please fill in ${field}.`
+      messageList.appendChild(listItem)
+    })
+    validationDiv.appendChild(messageList)
+  }
+
+  return { openModal, insertProject, insertTodo, updateProject, updateTodo, selectProject, deleteObject, populateFields, addModalEventListeners, toggleStatus, showVerificationMessage }
 }
