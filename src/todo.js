@@ -29,12 +29,12 @@ export default class Todo {
   }
 
   get editableValues() {
-    // remove status from this getter, let it be a toggle button instead
-    const values = { title: this.title,
-                     description: this.description,
-                     dueDate: this.dueDate,
-                     priority: this.priority }
-    return values
+    return {
+      title: this.title,
+      description: this.description,
+      dueDate: this.dueDate,
+      priority: this.priority
+    }
   }
 
   toggleStatus() {
