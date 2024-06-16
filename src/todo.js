@@ -9,10 +9,10 @@ export default class Todo {
     return Todo.id++
   }
 
-  constructor({ title, description, dueDate, priority, isOpen = true }) {
+  constructor({ title, description, dueDate, priority, id = Todo.generateId(), isOpen = true }) {
     this.#assignFields({ title, description, dueDate, priority })
     this.#dateCreated = new Date()
-    this.#id = Todo.generateId()
+    this.#id = id
     this.#isOpen = isOpen
   }
 

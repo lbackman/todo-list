@@ -8,10 +8,10 @@ export default class Project {
     return Project.id++
   }
 
-  constructor({ title, description }) {
+  constructor({ title, description, id = Project.generateId() }) {
     this.#assignFields({ title, description })
     this.#todos = {}
-    this.#id = Project.generateId()
+    this.#id = id
   }
 
   get id() {
