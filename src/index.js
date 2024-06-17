@@ -26,9 +26,9 @@ const editProject = function(args, project) {
   selectProject(editedProjectNode)
 }
 
-const createTodo = function(args) {
+const createTodo = function(args, project) {
   const todo = new Todo(args)
-  projectList.currentProject.addTodo(todo)
+  project.addTodo(todo)
   const todoContainer = document.querySelector('.todo-container')
   ui.insertTodo(todoContainer, todo)
 }
@@ -61,7 +61,7 @@ const createOrEditObject = function(modal, button, id) {
     if (id !== null) {
       editTodo(constructorArgs, projectList.currentProject.todos[id])
     } else {
-      createTodo(constructorArgs)
+      createTodo(constructorArgs, projectList.currentProject)
     }
   }
   return true
