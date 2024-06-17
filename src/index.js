@@ -21,6 +21,7 @@ const createProject = function(args) {
     // if we select when creating from storage, the saved currentProjectId will be overwritten
     selectProject(project)
   }
+  return project
 }
 
 const editProject = function(args, project) {
