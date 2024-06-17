@@ -105,6 +105,7 @@ const deleteProject = function(projectNode) {
   const deletableProjectId = Number(projectNode.dataset.id)
   projectList.removeProject(deletableProjectId)
   ui.deleteObject(projectNode, deletableProjectId, projectList.projectId)
+  ls.removeProject(deletableProjectId)
 }
 
 const deleteTodo = function(todoNode) {
