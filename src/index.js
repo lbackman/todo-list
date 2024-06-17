@@ -4,23 +4,30 @@ import ProjectList from './project_list'
 import Project from './project'
 import Todo from './todo'
 import { userInterface } from './user_interface'
+import { storage } from './storage'
 
 const projectList = new ProjectList()
 
 const ui = userInterface()
+const ls = storage()
 
 const createProject = function(args) {
   const project = new Project(args)
   projectList.addProject(project)
   const projectContainer = document.querySelector('.project-container')
   ui.insertProject(projectContainer, project)
-  selectProject(project)
+  ls.storeProject((JSON.stringify(project)), args.id)
+  if (args.id === undefined) {
+    // if we select when creating from storage, the saved currentProjectId will be overwritten
+    selectProject(project)
+  }
 }
 
 const editProject = function(args, project) {
   project.edit(args)
   const projectContainer = document.querySelector('.project-container')
   ui.updateProject(projectContainer, project)
+  ls.storeProject((JSON.stringify(project)), args.id)
   selectProject(project)
 }
 
@@ -109,6 +116,7 @@ const deleteTodo = function(todoNode) {
 const selectProject = function(project) {
   projectList.projectId = project.id
   ui.selectProject(project)
+  ls.updateCurrentProject(project)
 }
 
 const handleModalButtonClick = function(target) {
@@ -155,16 +163,34 @@ document.addEventListener('click', function(event) {
   }
 })
 
-createProject(
-  {
-    'title': 'Default project',
-    'description': 'Add todos here'
-  }
-)
+// createProject(
+//   {
+//     'title': 'Default project',
+//     'description': 'Add todos here'
+//   }
+// )
 
-createProject(
-  {
-    'title': 'Second project',
-    'description': 'Add todos here'
-  }
-)
+// createProject(
+//   {
+//     'title': 'Second project',
+//     'description': 'Add todos here'
+//   }
+// )
+
+if (localStorage.getItem('projects')) {
+  // populate the page with the stored projects and todos
+  const storedProjects = JSON.parse(localStorage.getItem('projects'))
+  Object.values(storedProjects).forEach(project => {
+    const restoredProject = createProject(project)
+    Object.values(project.todos).forEach(todo => {
+      createTodo(todo, restoredProject)
+    })
+  })
+  // set the current max ids for projects and todos
+  Project.id = Number(localStorage.getItem('currentMaxProjectId')) + 1
+  Todo.id = Number(localStorage.getItem('currentMaxTodoId')) + 1
+  // select the project with the currentProjectId
+  selectProject(projectList.projects[Number(localStorage.getItem('currentProjectId'))])
+} else {
+  ls.setProperties()
+}
