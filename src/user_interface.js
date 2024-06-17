@@ -45,15 +45,19 @@ export function userInterface() {
     replacableNode.replaceWith(updatedNode)
   }
 
-  const selectProject = function(projectNode, project) {
-    const previouslySelected = projectNode.parentNode.querySelector('.selected')
-    if (previouslySelected) {
-      previouslySelected.classList.remove('selected')
+  const selectProject = function(project) {
+    const projectContainer = document.querySelector('.project-container')
+    const projectNode = projectContainer.querySelector(`[data-id='${project.id}']`)
+    if (!projectNode.classList.contains('selected')) {
+      const previouslySelected = projectNode.parentNode.querySelector('.selected')
+      if (previouslySelected) {
+        previouslySelected.classList.remove('selected')
+      }
+      projectNode.classList.add('selected')
+      const todoContainer = document.querySelector('.todo-container')
+      clearContainer(todoContainer)
+      fillContainer(todoContainer, project.todosArray)
     }
-    projectNode.classList.add('selected')
-    const todoContainer = document.querySelector('.todo-container')
-    clearContainer(todoContainer)
-    fillContainer(todoContainer, project.todosArray)
   }
 
   const deleteObject = function(node, projectId = null, currentProjectId = null) {

@@ -14,16 +14,14 @@ const createProject = function(args) {
   projectList.addProject(project)
   const projectContainer = document.querySelector('.project-container')
   ui.insertProject(projectContainer, project)
-  const newProjectNode = projectContainer.querySelector(`[data-id='${project.id}']`)
-  selectProject(newProjectNode)
+  selectProject(project)
 }
 
 const editProject = function(args, project) {
   project.edit(args)
   const projectContainer = document.querySelector('.project-container')
   ui.updateProject(projectContainer, project)
-  const editedProjectNode = projectContainer.querySelector(`[data-id='${project.id}']`)
-  selectProject(editedProjectNode)
+  selectProject(project)
 }
 
 const createTodo = function(args, project) {
@@ -108,12 +106,9 @@ const deleteTodo = function(todoNode) {
   ui.deleteObject(todoNode)
 }
 
-const selectProject = function(projectNode) {
-  if (!projectNode.classList.contains('selected')) {
-    projectList.projectId = Number(projectNode.dataset.id)
-    const project = projectList.currentProject
-    ui.selectProject(projectNode, project)
-  }
+const selectProject = function(project) {
+  projectList.projectId = project.id
+  ui.selectProject(project)
 }
 
 const handleModalButtonClick = function(target) {
@@ -145,8 +140,8 @@ document.addEventListener('click', function(event) {
     deleteObject(deletable)
   }
   if (event.target.classList.contains('selectable')) {
-    const selectable = event.target.closest('.project')
-    selectProject(selectable)
+    const id = Number(event.target.closest('.project').dataset.id)
+    selectProject(projectList.projects[id])
   }
   if (event.target.classList.contains('edit')) {
     const container = event.target.closest('.container')
