@@ -59,4 +59,11 @@ export default class Project {
       this[property] = fieldValues[property]
     }
   }
+
+  toJSON() {
+    const project = this.editableValues
+    project.id = this.id
+    project.todos = this.todos
+    return project
+  }
 }

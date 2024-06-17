@@ -50,4 +50,12 @@ export default class Todo {
       this[property] = fieldValues[property]
     }
   }
+
+  toJSON() {
+    const todo = this.editableValues
+    todo.id = this.id
+    todo.isOpen = this.isOpen
+    todo.dateCreated = this.creationDate
+    return todo
+  }
 }
