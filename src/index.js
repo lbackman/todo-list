@@ -41,10 +41,11 @@ const createTodo = function(args, project) {
   }
 }
 
-const editTodo = function(args, todo) {
+const editTodo = function(args, todo, project) {
   todo.edit(args)
   const todoContainer = document.querySelector('.todo-container')
   ui.updateTodo(todoContainer, todo)
+  ls.storeTodo(todo, project, args.id)
 }
 
 const createOrEditObject = function(modal, button, id) {
@@ -67,7 +68,7 @@ const createOrEditObject = function(modal, button, id) {
   }
   else if (button.id === 'create-todo') {
     if (id !== null) {
-      editTodo(constructorArgs, projectList.currentProject.todos[id])
+      editTodo(constructorArgs, projectList.currentProject.todos[id], projectList.currentProject)
     } else {
       createTodo(constructorArgs, projectList.currentProject)
     }
