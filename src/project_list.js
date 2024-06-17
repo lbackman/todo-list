@@ -18,6 +18,10 @@ export default class ProjectList {
     return this.#projects[this.#currentProjectId]
   }
 
+  get projects() {
+    return this.#projects
+  }
+
   addProject(project) {
     this.#projects[project.id] = project
     // this line may be separated out in future
