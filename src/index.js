@@ -115,9 +115,11 @@ const deleteTodo = function(todoNode) {
 }
 
 const selectProject = function(project) {
-  projectList.projectId = project.id
-  ui.selectProject(project)
-  ls.updateCurrentProject(project)
+  if (project) {
+    projectList.projectId = project.id
+    ui.selectProject(project)
+    ls.updateCurrentProject(project)
+  }
 }
 
 const handleModalButtonClick = function(target) {
