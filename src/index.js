@@ -35,7 +35,10 @@ const createTodo = function(args, project) {
   const todo = new Todo(args)
   project.addTodo(todo)
   const todoContainer = document.querySelector('.todo-container')
-  ui.insertTodo(todoContainer, todo)
+  ls.storeTodo(todo, project, args.id)
+  if (args.id === undefined) {
+    ui.insertTodo(todoContainer, todo)
+  }
 }
 
 const editTodo = function(args, todo) {
@@ -139,6 +142,7 @@ const toggleStatus = function(todoNode) {
   const todo = projectList.currentProject.todos[id]
   todo.toggleStatus()
   ui.toggleStatus(todoNode, todo.isOpen)
+  ls.storeTodo(todo, projectList.currentProject)
 }
 
 document.addEventListener('click', function(event) {

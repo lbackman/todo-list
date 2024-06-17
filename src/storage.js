@@ -26,5 +26,14 @@ export function storage() {
     localStorage.setItem('projects', JSON.stringify(projectList))
   }
 
-  return { setProperties, storeProject, updateCurrentProject, removeProject }
+  const storeTodo = function(todo, project, previouslyUsedId) {
+    const projectList = JSON.parse(localStorage.getItem('projects'))
+    if (previouslyUsedId === undefined) {
+      localStorage.setItem('currentMaxTodoId', JSON.stringify(todo.id))
+    }
+    projectList[project.id].todos[todo.id] = todo
+    localStorage.setItem('projects', JSON.stringify(projectList))
+  }
+
+  return { setProperties, storeProject, updateCurrentProject, removeProject, storeTodo }
 }
