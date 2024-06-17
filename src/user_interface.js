@@ -18,12 +18,14 @@ export function userInterface() {
     modal.style.display = "none"
   }
 
-  const insertProject = function(container, project) {
-    insert(projectTemplate, container, project)
+  const insertProject = function(project) {
+    const projectContainer = document.querySelector('.project-container')
+    insert(projectTemplate, projectContainer, project)
   }
 
-  const insertTodo = function(container, todo) {
-    insert(todoTemplate, container, todo)
+  const insertTodo = function(todo) {
+    const todoContainer = document.querySelector('.todo-container')
+    insert(todoTemplate, todoContainer, todo)
   }
 
   const insert = function(template, container, object) {
