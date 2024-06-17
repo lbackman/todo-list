@@ -7,7 +7,6 @@ export function storage() {
   }
 
   const storeProject = function(project, previouslyUsedId) {
-    project = JSON.parse(project)
     if (previouslyUsedId === undefined) {
       localStorage.setItem('currentMaxProjectId', JSON.stringify(project.id))
     }
