@@ -116,6 +116,7 @@ const deleteTodo = function(todoNode) {
   const deletableTodoId = Number(todoNode.dataset.id)
   projectList.currentProject.removeTodo(deletableTodoId)
   ui.deleteObject(todoNode)
+  ls.removeTodo(deletableTodoId, projectList.projectId)
 }
 
 const selectProject = function(project) {

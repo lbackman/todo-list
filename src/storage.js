@@ -34,5 +34,11 @@ export function storage() {
     localStorage.setItem('projects', JSON.stringify(projectList))
   }
 
-  return { setProperties, storeProject, updateCurrentProject, removeProject, storeTodo }
+  const removeTodo = function(todoId, projectId) {
+    const projectList = JSON.parse(localStorage.getItem('projects'))
+    delete projectList[projectId].todos[todoId]
+    localStorage.setItem('projects', JSON.stringify(projectList))
+  }
+
+  return { setProperties, storeProject, updateCurrentProject, removeProject, storeTodo, removeTodo }
 }
