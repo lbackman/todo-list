@@ -105,7 +105,7 @@ const deleteObject = function(node) {
 const deleteProject = function(projectNode) {
   const deletableProjectId = Number(projectNode.dataset.id)
   projectList.removeProject(deletableProjectId)
-  userInterface.deleteObject(projectNode, deletableProjectId, projectList.projectId)
+  userInterface.deleteObject(projectNode, deletableProjectId, projectList.currentProjectId)
   storage.removeProject(deletableProjectId)
 }
 
@@ -113,12 +113,12 @@ const deleteTodo = function(todoNode) {
   const deletableTodoId = Number(todoNode.dataset.id)
   projectList.currentProject.removeTodo(deletableTodoId)
   userInterface.deleteObject(todoNode)
-  storage.removeTodo(projectList.projectId, deletableTodoId)
+  storage.removeTodo(projectList.currentProjectId, deletableTodoId)
 }
 
 const selectProject = function(project) {
   if (project) {
-    projectList.projectId = project.id
+    projectList.currentProjectId = project.id
     userInterface.selectProject(project)
     storage.updateCurrentProjectId(project)
   }

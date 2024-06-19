@@ -1,21 +1,21 @@
 export default class ProjectList {
   #projects
-  #currentProjectId
+  #currentId
 
   constructor() {
     this.#projects = {}
   }
 
-  get projectId() {
-    return this.#currentProjectId
+  get currentProjectId() {
+    return this.#currentId
   }
 
-  set projectId(id) {
-    this.#currentProjectId = id
+  set currentProjectId(id) {
+    this.#currentId = id
   }
 
   get currentProject() {
-    return this.#projects[this.#currentProjectId]
+    return this.#projects[this.#currentId]
   }
 
   get projects() {
@@ -24,12 +24,10 @@ export default class ProjectList {
 
   addProject(project) {
     this.#projects[project.id] = project
-    // this line may be separated out in future
-    this.projectId = project.id
+    this.#currentId = project.id
   }
 
   removeProject(id) {
     delete this.#projects[id]
-    // if the current project is removed, an adjacent project is chosen in the UI
   }
 }
