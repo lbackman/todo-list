@@ -120,7 +120,7 @@ const selectProject = function(project) {
   if (project) {
     projectList.projectId = project.id
     userInterface.selectProject(project)
-    storage.updateCurrentProject(project)
+    storage.updateCurrentProjectId(project)
   }
 }
 
