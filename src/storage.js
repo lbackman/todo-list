@@ -7,15 +7,15 @@ export default (function storage() {
   }
 
   const modifyStorage = function(storageFunction, args) {
-    const projectList = JSON.parse(localStorage.getItem('projects'))
-    storageFunction(projectList, ...args)
-    localStorage.setItem('projects', JSON.stringify(projectList))
+    const projects = JSON.parse(localStorage.getItem('projects'))
+    storageFunction(projects, ...args)
+    localStorage.setItem('projects', JSON.stringify(projects))
   }
 
-  const projectStorer = (list, project) => list[project.id] = project
-  const projectRemover = (list, projectId) => delete list[projectId]
-  const todoRemover = (list, projectId, todoId) => delete list[projectId].todos[todoId]
-  const todoStorer = (list, project, todo) => list[project.id].todos[todo.id] = todo
+  const projectStorer = (projects, project) => projects[project.id] = project
+  const projectRemover = (projects, projectId) => delete projects[projectId]
+  const todoStorer = (projects, project, todo) => projects[project.id].todos[todo.id] = todo
+  const todoRemover = (projects, projectId, todoId) => delete projects[projectId].todos[todoId]
 
   const storeProject = function(project) {
     localStorage.setItem('currentMaxProjectId', JSON.stringify(project.id))
