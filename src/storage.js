@@ -1,4 +1,4 @@
-export function storage() {
+export default (function storage() {
   const setProperties = function() {
     localStorage.setItem('projects', '{}')
     localStorage.setItem('currentMaxProjectId', '0')
@@ -41,4 +41,4 @@ export function storage() {
   }
 
   return { setProperties, storeProject, updateCurrentProject, removeProject, storeTodo, removeTodo }
-}
+})()

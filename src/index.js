@@ -4,17 +4,15 @@ import ProjectList from './project_list'
 import Project from './project'
 import Todo from './todo'
 import userInterface from './user_interface'
-import { storage } from './storage'
+import storage from './storage'
 
 const projectList = new ProjectList()
-
-const ls = storage()
 
 const createProject = function(args) {
   const project = new Project(args)
   projectList.addProject(project)
   userInterface.insertProject(project)
-  ls.storeProject(project, args.id)
+  storage.storeProject(project, args.id)
   if (args.id === undefined) {
     // if we select when creating from storage, the saved currentProjectId will be overwritten
     selectProject(project)
@@ -26,14 +24,14 @@ const editProject = function(args, project) {
   project.edit(args)
   const projectContainer = document.querySelector('.project-container')
   userInterface.updateProject(projectContainer, project)
-  ls.storeProject(project, args.id)
+  storage.storeProject(project, args.id)
   selectProject(project)
 }
 
 const createTodo = function(args, project) {
   const todo = new Todo(args)
   project.addTodo(todo)
-  ls.storeTodo(todo, project, args.id)
+  storage.storeTodo(todo, project, args.id)
   // unnecessary to insert todo if it's created from storage
   if (args.id === undefined) {
     userInterface.insertTodo(todo)
@@ -44,7 +42,7 @@ const editTodo = function(args, todo, project) {
   todo.edit(args)
   const todoContainer = document.querySelector('.todo-container')
   userInterface.updateTodo(todoContainer, todo)
-  ls.storeTodo(todo, project, args.id)
+  storage.storeTodo(todo, project, args.id)
 }
 
 const createOrEditObject = function(modal, button, id) {
@@ -108,21 +106,21 @@ const deleteProject = function(projectNode) {
   const deletableProjectId = Number(projectNode.dataset.id)
   projectList.removeProject(deletableProjectId)
   userInterface.deleteObject(projectNode, deletableProjectId, projectList.projectId)
-  ls.removeProject(deletableProjectId)
+  storage.removeProject(deletableProjectId)
 }
 
 const deleteTodo = function(todoNode) {
   const deletableTodoId = Number(todoNode.dataset.id)
   projectList.currentProject.removeTodo(deletableTodoId)
   userInterface.deleteObject(todoNode)
-  ls.removeTodo(deletableTodoId, projectList.projectId)
+  storage.removeTodo(deletableTodoId, projectList.projectId)
 }
 
 const selectProject = function(project) {
   if (project) {
     projectList.projectId = project.id
     userInterface.selectProject(project)
-    ls.updateCurrentProject(project)
+    storage.updateCurrentProject(project)
   }
 }
 
@@ -143,7 +141,7 @@ const toggleStatus = function(todoNode) {
   const todo = projectList.currentProject.todos[id]
   todo.toggleStatus()
   userInterface.toggleStatus(todoNode, todo.isOpen)
-  ls.storeTodo(todo, projectList.currentProject)
+  storage.storeTodo(todo, projectList.currentProject)
 }
 
 document.addEventListener('click', function(event) {
@@ -200,5 +198,5 @@ if (localStorage.getItem('projects')) {
   // select the project with the currentProjectId
   selectProject(projectList.projects[Number(localStorage.getItem('currentProjectId'))])
 } else {
-  ls.setProperties()
+  storage.setProperties()
 }
