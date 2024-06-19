@@ -31,7 +31,7 @@ const editProject = function(args, project) {
 const createTodo = function(args, project) {
   const todo = new Todo(args)
   project.addTodo(todo)
-  storage.storeTodo(todo, project, args.id)
+  storage.storeTodo(project, todo, args.id)
   // unnecessary to insert todo if it's created from storage
   if (args.id === undefined) {
     userInterface.insertTodo(todo)
@@ -42,7 +42,7 @@ const editTodo = function(args, todo, project) {
   todo.edit(args)
   const todoContainer = document.querySelector('.todo-container')
   userInterface.updateTodo(todoContainer, todo)
-  storage.storeTodo(todo, project, args.id)
+  storage.storeTodo(project, todo, args.id)
 }
 
 const createOrEditObject = function(modal, button, id) {
@@ -113,7 +113,7 @@ const deleteTodo = function(todoNode) {
   const deletableTodoId = Number(todoNode.dataset.id)
   projectList.currentProject.removeTodo(deletableTodoId)
   userInterface.deleteObject(todoNode)
-  storage.removeTodo(deletableTodoId, projectList.projectId)
+  storage.removeTodo(projectList.projectId, deletableTodoId)
 }
 
 const selectProject = function(project) {
@@ -141,7 +141,7 @@ const toggleStatus = function(todoNode) {
   const todo = projectList.currentProject.todos[id]
   todo.toggleStatus()
   userInterface.toggleStatus(todoNode, todo.isOpen)
-  storage.storeTodo(todo, projectList.currentProject)
+  storage.storeTodo(projectList.currentProject, todo)
 }
 
 document.addEventListener('click', function(event) {
