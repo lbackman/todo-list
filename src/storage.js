@@ -22,10 +22,6 @@ export default (function storage() {
     modifyStorage(projectStorer, [project])
   }
 
-  const updateCurrentProjectId = function(project) {
-    localStorage.setItem('currentProjectId', JSON.stringify(project.id))
-  }
-
   const removeProject = function(projectId) {
     modifyStorage(projectRemover, [projectId])
   }
@@ -39,5 +35,9 @@ export default (function storage() {
     modifyStorage(todoRemover, [projectId, todoId])
   }
 
-  return { setProperties, storeProject, updateCurrentProjectId, removeProject, storeTodo, removeTodo }
+  const updateCurrentProjectId = function(project) {
+    localStorage.setItem('currentProjectId', JSON.stringify(project.id))
+  }
+
+  return { setProperties, storeProject, removeProject, storeTodo, removeTodo, updateCurrentProjectId }
 })()
