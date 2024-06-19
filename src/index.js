@@ -12,10 +12,10 @@ const createProject = function(args) {
   const project = new Project(args)
   projectList.addProject(project)
   userInterface.insertProject(project)
-  storage.storeProject(project, args.id)
   if (args.id === undefined) {
     // if we select when creating from storage, the saved currentProjectId will be overwritten
     selectProject(project)
+    storage.storeProject(project, args.id)
   }
   return project
 }
@@ -31,10 +31,10 @@ const editProject = function(args, project) {
 const createTodo = function(args, project) {
   const todo = new Todo(args)
   project.addTodo(todo)
-  storage.storeTodo(project, todo, args.id)
-  // unnecessary to insert todo if it's created from storage
+  // unnecessary to insert todo or store again if it's created from storage
   if (args.id === undefined) {
     userInterface.insertTodo(todo)
+    storage.storeTodo(project, todo)
   }
 }
 
