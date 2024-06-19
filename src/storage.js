@@ -6,13 +6,23 @@ export default (function storage() {
     localStorage.setItem('currentProjectId', '0')
   }
 
+  const modifyStorage = function(storageFunction, args) {
+    const projectList = JSON.parse(localStorage.getItem('projects'))
+    storageFunction(projectList, ...args)
+    localStorage.setItem('projects', JSON.stringify(projectList))
+  }
+
+  const projectStorer = (list, project) => list[project.id] = project
+  const projectRemover = (list, projectId) => delete list[projectId]
+  const todoRemover = (list, projectId, todoId) => delete list[projectId].todos[todoId]
+  const todoStorer = (list, project, todo) => list[project.id].todos[todo.id] = todo
+
   const storeProject = function(project, previouslyUsedId) {
+    console.log('store')
     if (previouslyUsedId === undefined) {
       localStorage.setItem('currentMaxProjectId', JSON.stringify(project.id))
     }
-    const projectList = JSON.parse(localStorage.getItem('projects'))
-    projectList[project.id] = project
-    localStorage.setItem('projects', JSON.stringify(projectList))
+    modifyStorage(projectStorer, [project])
   }
 
   const updateCurrentProject = function(project) {
@@ -20,24 +30,18 @@ export default (function storage() {
   }
 
   const removeProject = function(projectId) {
-    const projectList = JSON.parse(localStorage.getItem('projects'))
-    delete projectList[projectId]
-    localStorage.setItem('projects', JSON.stringify(projectList))
+    modifyStorage(projectRemover, [projectId])
   }
 
-  const storeTodo = function(todo, project, previouslyUsedId) {
-    const projectList = JSON.parse(localStorage.getItem('projects'))
+  const storeTodo = function(project, todo, previouslyUsedId) {
     if (previouslyUsedId === undefined) {
       localStorage.setItem('currentMaxTodoId', JSON.stringify(todo.id))
     }
-    projectList[project.id].todos[todo.id] = todo
-    localStorage.setItem('projects', JSON.stringify(projectList))
+    modifyStorage(todoStorer, [project, todo])
   }
 
-  const removeTodo = function(todoId, projectId) {
-    const projectList = JSON.parse(localStorage.getItem('projects'))
-    delete projectList[projectId].todos[todoId]
-    localStorage.setItem('projects', JSON.stringify(projectList))
+  const removeTodo = function(projectId, todoId) {
+    modifyStorage(todoRemover, [projectId, todoId])
   }
 
   return { setProperties, storeProject, updateCurrentProject, removeProject, storeTodo, removeTodo }
