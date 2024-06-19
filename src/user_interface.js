@@ -1,7 +1,7 @@
 import { projectTemplate } from './project_template'
 import { todoTemplate } from './todo_template'
 
-export function userInterface() {
+export default (function userInterface() {
   const openModal = function(modal, headerContent) {
     const header = modal.querySelector('.header .object-type')
     header.textContent = headerContent
@@ -140,4 +140,4 @@ export function userInterface() {
   }
 
   return { openModal, insertProject, insertTodo, updateProject, updateTodo, selectProject, deleteObject, populateFields, addModalEventListeners, toggleStatus, showVerificationMessage }
-}
+})()

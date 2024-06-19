@@ -3,18 +3,17 @@ import './style.css'
 import ProjectList from './project_list'
 import Project from './project'
 import Todo from './todo'
-import { userInterface } from './user_interface'
+import userInterface from './user_interface'
 import { storage } from './storage'
 
 const projectList = new ProjectList()
 
-const ui = userInterface()
 const ls = storage()
 
 const createProject = function(args) {
   const project = new Project(args)
   projectList.addProject(project)
-  ui.insertProject(project)
+  userInterface.insertProject(project)
   ls.storeProject(project, args.id)
   if (args.id === undefined) {
     // if we select when creating from storage, the saved currentProjectId will be overwritten
@@ -26,7 +25,7 @@ const createProject = function(args) {
 const editProject = function(args, project) {
   project.edit(args)
   const projectContainer = document.querySelector('.project-container')
-  ui.updateProject(projectContainer, project)
+  userInterface.updateProject(projectContainer, project)
   ls.storeProject(project, args.id)
   selectProject(project)
 }
@@ -37,14 +36,14 @@ const createTodo = function(args, project) {
   ls.storeTodo(todo, project, args.id)
   // unnecessary to insert todo if it's created from storage
   if (args.id === undefined) {
-    ui.insertTodo(todo)
+    userInterface.insertTodo(todo)
   }
 }
 
 const editTodo = function(args, todo, project) {
   todo.edit(args)
   const todoContainer = document.querySelector('.todo-container')
-  ui.updateTodo(todoContainer, todo)
+  userInterface.updateTodo(todoContainer, todo)
   ls.storeTodo(todo, project, args.id)
 }
 
@@ -79,21 +78,21 @@ const createOrEditObject = function(modal, button, id) {
 const verifyRequiredFields = function(modal, requiredFields) {
   const emptyFields = requiredFields.filter(field => field.value.trim() === '').map(field => field.dataset.name)
   if (emptyFields[0]) {
-    ui.showVerificationMessage(modal, emptyFields)
+    userInterface.showVerificationMessage(modal, emptyFields)
     return false
   }
   return true
 }
 
 const openEditModal = function(modal, id) {
-  ui.openModal(modal, 'Edit')
-  ui.populateFields(modal, projectList.currentProject, id)
-  ui.addModalEventListeners(createOrEditObject, modal, id, true)
+  userInterface.openModal(modal, 'Edit')
+  userInterface.populateFields(modal, projectList.currentProject, id)
+  userInterface.addModalEventListeners(createOrEditObject, modal, id, true)
 }
 
 const openNewModal = function(modal) {
-  ui.openModal(modal, 'New')
-  ui.addModalEventListeners(createOrEditObject, modal)
+  userInterface.openModal(modal, 'New')
+  userInterface.addModalEventListeners(createOrEditObject, modal)
 }
 
 const deleteObject = function(node) {
@@ -108,21 +107,21 @@ const deleteObject = function(node) {
 const deleteProject = function(projectNode) {
   const deletableProjectId = Number(projectNode.dataset.id)
   projectList.removeProject(deletableProjectId)
-  ui.deleteObject(projectNode, deletableProjectId, projectList.projectId)
+  userInterface.deleteObject(projectNode, deletableProjectId, projectList.projectId)
   ls.removeProject(deletableProjectId)
 }
 
 const deleteTodo = function(todoNode) {
   const deletableTodoId = Number(todoNode.dataset.id)
   projectList.currentProject.removeTodo(deletableTodoId)
-  ui.deleteObject(todoNode)
+  userInterface.deleteObject(todoNode)
   ls.removeTodo(deletableTodoId, projectList.projectId)
 }
 
 const selectProject = function(project) {
   if (project) {
     projectList.projectId = project.id
-    ui.selectProject(project)
+    userInterface.selectProject(project)
     ls.updateCurrentProject(project)
   }
 }
@@ -143,7 +142,7 @@ const toggleStatus = function(todoNode) {
   const id = Number(todoNode.dataset.id)
   const todo = projectList.currentProject.todos[id]
   todo.toggleStatus()
-  ui.toggleStatus(todoNode, todo.isOpen)
+  userInterface.toggleStatus(todoNode, todo.isOpen)
   ls.storeTodo(todo, projectList.currentProject)
 }
 
