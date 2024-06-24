@@ -15,7 +15,7 @@ const createProject = function(args) {
   if (args.id === undefined) {
     // if we select when creating from storage, the saved currentProjectId will be overwritten
     selectProject(project)
-    storage.storeProject(project, args.id)
+    storage.storeProject(project, true)
   }
   return project
 }
@@ -24,7 +24,7 @@ const editProject = function(args, project) {
   project.edit(args)
   const projectContainer = document.querySelector('.project-container')
   userInterface.updateProject(projectContainer, project)
-  storage.storeProject(project, args.id)
+  storage.storeProject(project, false)
   selectProject(project)
 }
 
@@ -34,7 +34,7 @@ const createTodo = function(args, project) {
   // unnecessary to insert todo or store again if it's created from storage
   if (args.id === undefined) {
     userInterface.insertTodo(todo)
-    storage.storeTodo(project, todo)
+    storage.storeTodo(project, todo, true)
   }
 }
 
@@ -42,7 +42,7 @@ const editTodo = function(args, todo, project) {
   todo.edit(args)
   const todoContainer = document.querySelector('.todo-container')
   userInterface.updateTodo(todoContainer, todo)
-  storage.storeTodo(project, todo, args.id)
+  storage.storeTodo(project, todo, false)
 }
 
 const createOrEditObject = function(modal, button, id) {

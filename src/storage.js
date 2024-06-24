@@ -17,18 +17,22 @@ export default (function storage() {
   const todoStorer = (projects, project, todo) => projects[project.id].todos[todo.id] = todo
   const todoRemover = (projects, projectId, todoId) => delete projects[projectId].todos[todoId]
 
-  const storeProject = function(project) {
-    localStorage.setItem('currentMaxProjectId', JSON.stringify(project.id))
+  const storeProject = function(project, isNewProject) {
     modifyStorage(projectStorer, [project])
+    if (isNewProject) {
+      localStorage.setItem('currentMaxProjectId', JSON.stringify(project.id))
+    }
   }
 
   const removeProject = function(projectId) {
     modifyStorage(projectRemover, [projectId])
   }
 
-  const storeTodo = function(project, todo) {
-    localStorage.setItem('currentMaxTodoId', JSON.stringify(todo.id))
+  const storeTodo = function(project, todo, isNewTodo) {
     modifyStorage(todoStorer, [project, todo])
+    if (isNewTodo) {
+      localStorage.setItem('currentMaxTodoId', JSON.stringify(todo.id))
+    }
   }
 
   const removeTodo = function(projectId, todoId) {
