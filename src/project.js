@@ -51,7 +51,7 @@ export default class Project {
   }
 
   get editableValues() {
-    return { 'title': this.title, 'description': this.description }
+    return { title: this.title, description: this.description }
   }
 
   #assignFields(fieldValues) {
