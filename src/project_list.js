@@ -1,33 +1,31 @@
-export default class ProjectList {
-  #projects
-  #currentId
+export default (function projectList() {
+  const _projects = {}
+  let _currentProjectId
 
-  constructor() {
-    this.#projects = {}
-  }
+  return {
+    get currentProjectId() {
+      return _currentProjectId
+    },
 
-  get currentProjectId() {
-    return this.#currentId
-  }
+    set currentProjectId(id) {
+      _currentProjectId = id
+    },
 
-  set currentProjectId(id) {
-    this.#currentId = id
-  }
+    get projects() {
+      return _projects
+    },
 
-  get currentProject() {
-    return this.#projects[this.#currentId]
-  }
+    get currentProject() {
+      return _projects[_currentProjectId]
+    },
 
-  get projects() {
-    return this.#projects
-  }
+    addProject(project) {
+      _projects[project.id] = project
+      _currentProjectId = project.id
+    },
 
-  addProject(project) {
-    this.#projects[project.id] = project
-    this.#currentId = project.id
+    removeProject(id) {
+      delete _projects[id]
+    }
   }
-
-  removeProject(id) {
-    delete this.#projects[id]
-  }
-}
+})()

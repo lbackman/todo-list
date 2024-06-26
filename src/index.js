@@ -1,12 +1,10 @@
 import './reset.css'
 import './style.css'
-import ProjectList from './project_list'
+import projectList from './project_list'
 import Project from './project'
 import Todo from './todo'
 import userInterface from './user_interface'
 import storage from './storage'
-
-const projectList = new ProjectList()
 
 const createProject = function(args) {
   const project = new Project(args)
