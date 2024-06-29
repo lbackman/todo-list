@@ -39,7 +39,6 @@ export default class Project {
 
   addTodo(todo) {
     this.#todos[todo.id] = todo
-    this.todoId = todo.id
   }
 
   removeTodo(id) {
