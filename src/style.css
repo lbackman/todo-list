@@ -19,6 +19,12 @@ main {
   border-radius: 5px;
 }
 
+h1 {
+  font-size: large;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
 .project-container,
 .todo-container,
 aside {
