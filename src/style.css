@@ -6,7 +6,8 @@ body {
 body,
 aside,
 main,
-.modal-form {
+.modal-form,
+.todo-header {
   display: flex;
 }
 
