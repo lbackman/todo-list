@@ -47,7 +47,7 @@ export default (function userInterface() {
     replacableNode.replaceWith(updatedNode)
   }
 
-  const selectProject = function(project) {
+  const selectProject = function(project, hideClosed) {
     const projectContainer = document.querySelector('.project-container')
     const projectNode = projectContainer.querySelector(`[data-id='${project.id}']`)
     if (!projectNode.classList.contains('selected')) {
@@ -56,10 +56,15 @@ export default (function userInterface() {
         previouslySelected.classList.remove('selected')
       }
       projectNode.classList.add('selected')
-      const todoContainer = document.querySelector('.todo-container')
-      clearContainer(todoContainer)
-      fillContainer(todoContainer, project.todosArray)
+      loadProject(project, hideClosed)
     }
+  }
+
+  const loadProject = function(project, hideClosed) {
+    const todoContainer = document.querySelector('.todo-container')
+    clearContainer(todoContainer)
+    const todosArray = project.todosArray(hideClosed)
+    fillContainer(todoContainer, todosArray)
   }
 
   const deleteObject = function(node, projectId = null, currentProjectId = null) {
@@ -139,5 +144,5 @@ export default (function userInterface() {
     validationDiv.appendChild(messageList)
   }
 
-  return { openModal, insertProject, insertTodo, updateProject, updateTodo, selectProject, deleteObject, populateFields, addModalEventListeners, toggleStatus, showVerificationMessage }
+  return { openModal, insertProject, insertTodo, updateProject, updateTodo, selectProject, loadProject, deleteObject, populateFields, addModalEventListeners, toggleStatus, showVerificationMessage }
 })()
