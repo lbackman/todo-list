@@ -4,6 +4,7 @@ export default (function storage() {
     localStorage.setItem('currentMaxProjectId', '0')
     localStorage.setItem('currentMaxTodoId', '0')
     localStorage.setItem('currentProjectId', '0')
+    localStorage.setItem('hideClosed', 'false')
   }
 
   const modifyStorage = function(storageFunction, args) {
@@ -43,5 +44,9 @@ export default (function storage() {
     localStorage.setItem('currentProjectId', JSON.stringify(project.id))
   }
 
-  return { setProperties, storeProject, removeProject, storeTodo, removeTodo, updateCurrentProjectId }
+  const toggleHideClosed = function(newStatus) {
+    localStorage.setItem('hideClosed', JSON.stringify(newStatus))
+  }
+
+  return { setProperties, storeProject, removeProject, storeTodo, removeTodo, updateCurrentProjectId, toggleHideClosed }
 })()
