@@ -6,6 +6,8 @@ import Todo from './todo'
 import userInterface from './user_interface'
 import storage from './storage'
 
+let hideClosed = false
+
 const createProject = function(args) {
   const project = new Project(args)
   projectList.addProject(project)
@@ -114,10 +116,10 @@ const deleteTodo = function(todoNode) {
   storage.removeTodo(projectList.currentProjectId, deletableTodoId)
 }
 
-const selectProject = function(project) {
+const selectProject = function(project, hideClosed) {
   if (project) {
     projectList.currentProjectId = project.id
-    userInterface.selectProject(project)
+    userInterface.selectProject(project, hideClosed)
     storage.updateCurrentProjectId(project)
   }
 }
@@ -153,7 +155,7 @@ document.addEventListener('click', function(event) {
   }
   if (event.target.classList.contains('selectable')) {
     const id = Number(event.target.closest('.project').dataset.id)
-    selectProject(projectList.projects[id])
+    selectProject(projectList.projects[id], hideClosed)
   }
   if (event.target.classList.contains('edit')) {
     const container = event.target.closest('.container')
@@ -165,21 +167,12 @@ document.addEventListener('click', function(event) {
     const todo = event.target.closest('.todo')
     toggleStatus(todo)
   }
+  if (event.target.classList.contains('show-closed')) {
+    hideClosed = !hideClosed
+    userInterface.loadProject(projectList.currentProject, hideClosed)
+    storage.toggleHideClosed(hideClosed)
+  }
 })
-
-// createProject(
-//   {
-//     'title': 'Default project',
-//     'description': 'Add todos here'
-//   }
-// )
-
-// createProject(
-//   {
-//     'title': 'Second project',
-//     'description': 'Add todos here'
-//   }
-// )
 
 if (localStorage.getItem('projects')) {
   // populate the page with the stored projects and todos
@@ -193,8 +186,10 @@ if (localStorage.getItem('projects')) {
   // set the current max ids for projects and todos
   Project.id = Number(localStorage.getItem('currentMaxProjectId')) + 1
   Todo.id = Number(localStorage.getItem('currentMaxTodoId')) + 1
-  // select the project with the currentProjectId
-  selectProject(projectList.projects[Number(localStorage.getItem('currentProjectId'))])
+  hideClosed = JSON.parse(localStorage.getItem('hideClosed'))
+  const hideClosedCheckBox = document.getElementById('hide-closed')
+  hideClosedCheckBox.checked = hideClosed
+  selectProject(projectList.projects[Number(localStorage.getItem('currentProjectId'))], hideClosed)
 } else {
   storage.setProperties()
 }
