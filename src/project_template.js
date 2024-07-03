@@ -1,6 +1,6 @@
 export function projectTemplate(project) {
   const projectDiv = document.createElement('div')
-  projectDiv.classList.add('project','selectable', 'deletable', 'editable')
+  projectDiv.classList.add('project','selectable', 'deletable', 'editable', 'information')
   projectDiv.dataset.id = project.id
   projectDiv.tabIndex = '0'
 
