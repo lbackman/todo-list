@@ -3,7 +3,7 @@ html {
 }
 
 body {
-  min-height: 100vh;
+  height: 100vh;
   padding: 0 3.25rem;
 }
 
@@ -55,6 +55,16 @@ p {
 .todo-container,
 aside {
   flex: 1;
+}
+
+.project-container,
+.todo-container {
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
+.modal-button {
+  margin-top: 1rem;
 }
 
 main {
