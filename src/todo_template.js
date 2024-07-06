@@ -6,7 +6,7 @@ export function todoTemplate(todo) {
   }
   todoDiv.dataset.id = todo.id
   todoDiv.tabIndex = '0'
-  const checkbox = `<input type="checkbox" class="check" ${todo.isOpen ? '' : 'checked'}>`
+  const checkbox = `<input type="checkbox" name="complete" class="check" ${todo.isOpen ? '' : 'checked'}>`
   const contents = `<div class="information">
                       <h2 class="title">${todo.title}</h2>
                       <p class="description">${todo.description}</p>
