@@ -8,10 +8,10 @@ import storage from './storage'
 
 let hideClosed = false
 
-const createProject = function(args) {
+const createProject = function(args, justCreated = false) {
   const project = new Project(args)
   projectList.addProject(project)
-  userInterface.insertProject(project)
+  userInterface.insertProject(project, justCreated)
   if (args.id === undefined) {
     // if we select when creating from storage, the saved currentProjectId will be overwritten
     selectProject(project)
@@ -28,12 +28,12 @@ const editProject = function(args, project) {
   selectProject(project)
 }
 
-const createTodo = function(args, project) {
+const createTodo = function(args, project, justCreated = false) {
   const todo = new Todo(args)
   project.addTodo(todo)
   // unnecessary to insert todo or store again if it's created from storage
   if (args.id === undefined) {
-    userInterface.insertTodo(todo)
+    userInterface.insertTodo(todo, justCreated)
     storage.storeTodo(project, todo, true)
   }
 }
@@ -60,14 +60,14 @@ const createOrEditObject = function(modal, button, id) {
     if (id !== null) {
       editProject(constructorArgs, projectList.currentProject)
     } else {
-      createProject(constructorArgs)
+      createProject(constructorArgs, true)
     }
   }
   else if (button.id === 'create-todo') {
     if (id !== null) {
       editTodo(constructorArgs, projectList.currentProject.todos[id], projectList.currentProject)
     } else {
-      createTodo(constructorArgs, projectList.currentProject)
+      createTodo(constructorArgs, projectList.currentProject, true)
     }
   }
   return true

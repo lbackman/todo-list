@@ -18,20 +18,22 @@ export default (function userInterface() {
     modal.style.display = "none"
   }
 
-  const insertProject = function(project) {
+  const insertProject = function(project, justCreated) {
     const projectContainer = document.querySelector('.project-container')
-    insert(projectTemplate, projectContainer, project)
+    insert(projectTemplate, projectContainer, project, justCreated)
   }
 
-  const insertTodo = function(todo) {
+  const insertTodo = function(todo, justCreated) {
     const todoContainer = document.querySelector('.todo-container')
-    insert(todoTemplate, todoContainer, todo)
+    insert(todoTemplate, todoContainer, todo, justCreated)
   }
 
-  const insert = function(template, container, object) {
+  const insert = function(template, container, object, justCreated) {
     const node = template(object)
     container.appendChild(node)
-    scrollToInserted(object, container)
+    if (justCreated) {
+      scrollToInserted(object, container)
+    }
   }
 
   const scrollToInserted = function(object, container) {
