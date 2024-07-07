@@ -31,6 +31,12 @@ export default (function userInterface() {
   const insert = function(template, container, object) {
     const node = template(object)
     container.appendChild(node)
+    scrollToInserted(object, container)
+  }
+
+  const scrollToInserted = function(object, container) {
+    const insertedNode = container.querySelector(`[data-id='${object.id}']`)
+    insertedNode.scrollIntoView()
   }
 
   const updateProject = function(container, project) {
