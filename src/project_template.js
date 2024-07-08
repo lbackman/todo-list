@@ -1,15 +1,15 @@
 export function projectTemplate(project) {
-  const projectDiv = document.createElement('div')
-  projectDiv.classList.add('project','selectable', 'deletable', 'editable', 'information')
-  projectDiv.dataset.id = project.id
-  projectDiv.tabIndex = '0'
+  const projectItem = document.createElement('li')
+  projectItem.classList.add('project','selectable', 'deletable', 'editable', 'information')
+  projectItem.dataset.id = project.id
+  projectItem.tabIndex = '0'
 
   const contents = `<h2 class="title selectable">${project.title}</h2>
                     <p class="description selectable">${project.description}</p>
                     <button class="delete">Delete</button>
                     <button class="edit selectable">Edit</button>`
 
-  projectDiv.insertAdjacentHTML('afterbegin', contents)
+  projectItem.insertAdjacentHTML('afterbegin', contents)
 
-  return projectDiv
+  return projectItem
 }

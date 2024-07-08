@@ -1,11 +1,11 @@
 export function todoTemplate(todo) {
-  const todoDiv = document.createElement('div')
-  todoDiv.classList.add('todo', 'deletable', 'editable')
+  const todoItem = document.createElement('li')
+  todoItem.classList.add('todo', 'deletable', 'editable')
   if (!todo.isOpen) {
-    todoDiv.classList.add('closed')
+    todoItem.classList.add('closed')
   }
-  todoDiv.dataset.id = todo.id
-  todoDiv.tabIndex = '0'
+  todoItem.dataset.id = todo.id
+  todoItem.tabIndex = '0'
   const checkbox = `<input type="checkbox" name="complete" class="check" ${todo.isOpen ? '' : 'checked'}>`
   const contents = `<div class="information">
                       <h2 class="title">${todo.title}</h2>
@@ -17,8 +17,8 @@ export function todoTemplate(todo) {
                       <button class="edit">Edit</button>
                     </div>`
   
-  todoDiv.insertAdjacentHTML('afterbegin', contents)
-  todoDiv.insertAdjacentHTML('afterbegin', checkbox)
+  todoItem.insertAdjacentHTML('afterbegin', contents)
+  todoItem.insertAdjacentHTML('afterbegin', checkbox)
 
-  return todoDiv
+  return todoItem
 }
