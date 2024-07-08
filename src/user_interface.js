@@ -80,10 +80,26 @@ export default (function userInterface() {
   }
 
   const deleteObject = function(node, projectId = null, currentProjectId = null) {
-    node.classList.add('deleted')
-    node.onanimationend = function() {
+    node.animate(
+      [
+        {
+          // from
+          opacity: 1
+        },
+        {
+          // to
+          opacity: 0,
+          backgroundColor: "#ccc",
+          marginBottom: `-${node.clientHeight}px`,
+          transform: "scale(0)",
+          transformOrigin: "top right"
+        },
+      ],
+      520,
+    )
+    setTimeout(() => {
       node.remove()
-    }
+    }, 500)
     if (projectId !== null && projectId === currentProjectId) {
       const todoContainer = document.querySelector('.todo-container')
       clearContainer(todoContainer)
