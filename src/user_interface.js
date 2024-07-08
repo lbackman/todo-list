@@ -80,7 +80,10 @@ export default (function userInterface() {
   }
 
   const deleteObject = function(node, projectId = null, currentProjectId = null) {
-    node.remove()
+    node.classList.add('deleted')
+    node.onanimationend = function() {
+      node.remove()
+    }
     if (projectId !== null && projectId === currentProjectId) {
       const todoContainer = document.querySelector('.todo-container')
       clearContainer(todoContainer)

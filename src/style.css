@@ -81,6 +81,21 @@ aside {
   }
 }
 
+.deleted {
+  animation: delete 490ms 10ms ease-in-out forwards;
+  opacity: 1;
+  transform: scale(1);
+  transform-origin: top right;
+}
+
+@keyframes delete {
+  100% {
+    background-color: #ccc;
+    opacity: 0;
+    transform: scale(0);
+  }
+}
+
 .modal-button {
   margin-top: 1rem;
 }
