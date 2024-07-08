@@ -33,6 +33,10 @@ export default (function userInterface() {
     container.appendChild(node)
     if (justCreated) {
       scrollToInserted(object, container)
+      node.classList.add('just-created')
+      node.onanimationend = function() {
+        node.classList.remove('just-created')
+      }
     }
   }
 

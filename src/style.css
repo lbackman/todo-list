@@ -60,7 +60,25 @@ aside {
 .project-container,
 .todo-container {
   overflow-y: auto;
+  overflow-x: hidden;
   scroll-behavior: smooth;
+}
+
+.just-created {
+  animation: show 1500ms 50ms ease-in-out forwards;
+  opacity: 0;
+  transform: scale(0);
+  transform-origin: top right;
+}
+
+@keyframes show {
+  25%, 50%, 100% {
+    opacity: 1;
+    transform: none;
+  }
+  50% {
+    background-color: #ccc;
+  }
 }
 
 .modal-button {
