@@ -6,6 +6,7 @@ export default (function userInterface() {
     const header = modal.querySelector('.header .object-type')
     header.textContent = headerContent
     modal.classList.add('visible')
+    modal.querySelector('[name="title"]').focus()
   }
 
   const closeModal = function(modal, resetFields = true) {
