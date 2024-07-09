@@ -135,6 +135,10 @@ button {
   align-items: baseline;
 }
 
+.modal-form > * {
+  margin-top: 0.25rem;
+}
+
 .close {
   color: #aaaaaa;
   position: absolute;
