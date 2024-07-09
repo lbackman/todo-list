@@ -5,7 +5,7 @@ export default (function userInterface() {
   const openModal = function(modal, headerContent) {
     const header = modal.querySelector('.header .object-type')
     header.textContent = headerContent
-    modal.style.display = "block"
+    modal.classList.add('visible')
   }
 
   const closeModal = function(modal, resetFields = true) {
@@ -13,9 +13,8 @@ export default (function userInterface() {
     clearContainer(validationDiv)
     if (resetFields) {
       modal.querySelector('form').reset()
-      console.log('reset')
     }
-    modal.style.display = "none"
+    modal.classList.remove('visible')
   }
 
   const insertProject = function(project, justCreated) {
