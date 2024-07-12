@@ -31,10 +31,11 @@
     <!-- header section with heading "Todo" and filters and sorting menu -->
     <div class="todo-header">
       <h1>Todos</h1>
-      <div>
-        <label for="hide-closed">Hide closed todos</label>
-        <input id="hide-closed" class="show-closed" type="checkbox">
-      </div>
+      <label for="hide-closed" class="switch">
+        <input id="hide-closed" type="checkbox">
+        <span class="slider"></span>
+        Hide closed todos
+      </label>
     </div>
     <div class="empty-container">
       <p>Select a project or create a new one to add todos!</p>

@@ -246,3 +246,9 @@ aside:not(:has(.selected)) ~ main .empty-container {
 aside:has(.selected) ~ main .empty-container {
   display: none;
 }
+
+.switch {
+  display: flex;
+  align-items: center;
+  margin-right: 0.25rem;
+}
