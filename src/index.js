@@ -167,7 +167,7 @@ document.addEventListener('click', function(event) {
     const todo = event.target.closest('.todo')
     toggleStatus(todo)
   }
-  if (event.target.classList.contains('show-closed')) {
+  if (event.target.id === 'hide-closed') {
     hideClosed = !hideClosed
     userInterface.loadProject(projectList.currentProject, hideClosed)
     storage.toggleHideClosed(hideClosed)
