@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todo List</title>
+<script defer src="runtime.bundle.js"></script><script defer src="index.bundle.js"></script></head>
+<body>
+  <aside class="projects container">
+    <h1>Projects</h1>
+    <ul class="project-container"></ul>
+    <button id="new-project" class="modal-button">New Project</button>
+    <!-- Project Modal -->
+    <div id="projectModal" class="modal">
+      <!-- Modal content -->
+      <div class="modal-content">
+        <h2 class="header"><span class="object-type"></span><span> Project</span></h2>
+        <span class="close">&times;</span>
+        <form class="modal-form" action="">
+          <label for="project-title" class="required">Title</label>
+          <input type="text" id="project-title" name="title" class="input" data-name="Title" required>
+          <label for="project-description">Description</label>
+          <textarea name="description" id="project-description" cols="30" rows="5" maxlength="150" class="input"></textarea>
+          <div class="validation"></div>
+          <input id="create-project" type="submit" value="Submit">
+        </form>
+      </div>
+    </div>
+  </aside>
+  <main class="todos container">
+    <!-- header section with heading "Todo" and filters and sorting menu -->
+    <div class="todo-header">
+      <h1>Todos</h1>
+      <label for="hide-closed" class="switch">
+        <input id="hide-closed" type="checkbox">
+        <span class="slider"></span>
+        Hide closed todos
+      </label>
+    </div>
+    <div class="empty-container">
+      <p>Select a project or create a new one to add todos!</p>
+    </div>
+    <ul class="todo-container"></ul>
+    <button id="new-todo" class="modal-button">New Todo</button>
+    <!-- Todo Modal -->
+    <div id="todoModal" class="modal">
+      <!-- Modal content -->
+      <div class="modal-content">
+        <h2 class="header"><span class="object-type"></span><span> Todo</span></h2>
+        <span class="close">&times;</span>
+        <form class="modal-form" action="">
+          <label for="todo-title" class="required">Title</label>
+          <input type="text" id="todo-title" name="title" class="input" data-name="Title" required>
+          <label for="priority" class="required">Priority</label>
+          <select name="priority" id="priority" class="input" data-name="Priority" required>
+            <option disabled selected value=""> -- select priority -- </option>
+            <option value="Low">Low</option>
+            <option value="Normal">Normal</option>
+            <option value="High">High</option>
+          </select>
+          <label for="dueDate" class="required">Due date</label>
+          <input type="date" id="dueDate" name="dueDate" class="input" data-name="Due date" required/>
+          <label for="todo-description">Description</label>
+          <textarea name="description" id="todo-description" cols="30" rows="5" maxlength="150" class="input"></textarea>
+          <div class="validation"></div>
+          <input id="create-todo" type="submit" value="Submit">
+        </form>
+      </div>
+    </div>
+  </main>
+</body>
+</html>
