@@ -29,11 +29,10 @@ export default (function userInterface() {
   }
 
   const insert = function(template, container, object, justCreated) {
-    const node = template(object)
+    const node = template(object, justCreated)
     container.appendChild(node)
     if (justCreated) {
       scrollToInserted(object, container)
-      node.classList.add('just-created')
       node.onanimationend = function() {
         node.classList.remove('just-created')
       }

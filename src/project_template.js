@@ -1,6 +1,9 @@
-export function projectTemplate(project) {
+export function projectTemplate(project, justCreated = false) {
   const projectItem = document.createElement('li')
   projectItem.classList.add('project','selectable', 'deletable', 'editable', 'information')
+  if (justCreated) {
+    projectItem.classList.add('just-created')
+  }
   projectItem.dataset.id = project.id
   projectItem.tabIndex = '0'
 

@@ -1,6 +1,9 @@
-export function todoTemplate(todo) {
+export function todoTemplate(todo, justCreated = false) {
   const todoItem = document.createElement('li')
   todoItem.classList.add('todo', 'deletable', 'editable')
+  if (justCreated) {
+    todoItem.classList.add('just-created')
+  }
   if (!todo.isOpen) {
     todoItem.classList.add('closed')
   }
