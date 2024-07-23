@@ -55,7 +55,11 @@ export default (function userInterface() {
   const update = function(template, container, object) {
     const replacableNode = container.querySelector(`[data-id='${object.id}']`)
     const updatedNode = template(object)
+    updatedNode.classList.add('just-edited')
     replacableNode.replaceWith(updatedNode)
+    updatedNode.onanimationend = function() {
+      updatedNode.classList.remove('just-edited')
+    }
   }
 
   const selectProject = function(project, hideClosed) {

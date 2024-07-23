@@ -91,6 +91,16 @@ aside {
   }
 }
 
+.just-edited {
+  animation: edit 1000ms ease-in-out forwards;
+}
+
+@keyframes edit {
+  50% {
+    background-color: #ccc;
+  }
+}
+
 .modal-button {
   margin-top: 1rem;
   border: 3px solid green;
